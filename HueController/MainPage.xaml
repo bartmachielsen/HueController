@@ -8,6 +8,41 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
 
+        <StackPanel Grid.Column="1" >
+            <TextBlock Text="TEXTTEXTTEXT"></TextBlock>
+        </StackPanel>
+        <SplitView Name="SplitView" Grid.Column="0"
+                   DisplayMode="CompactOverlay"
+                   OpenPaneLength="150"
+                   IsPaneOpen="False"
+                   CompactPaneLength="60"
+                   >
+            <SplitView.Pane>
+                <ListBox>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="EnlargeButton" Content="&#xE700;" FontFamily="Segoe MDL2 Assets" 
+                         Height="50" Width="50" Background="Transparent" Click="Button_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="MenuButton1" Content="&#xE825;" FontFamily="Segoe MDL2 Assets" 
+                         Height="50" Width="50" Background="Transparent"/>
+                        <TextBlock Text="Button 1" FontSize="18" VerticalAlignment="Center" />
+                    </StackPanel>
+                </ListBox>
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Grid>
+                    <TextBlock Text="SplitView Basic" FontSize="54" Foreground="White"
+                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </SplitView.Content>
+        </SplitView>
+        
+        
     </Grid>
 </Page>
