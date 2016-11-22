@@ -28,26 +28,28 @@ namespace HueController
         private ObservableCollection<Light> lights = new ObservableCollection<Light>();
         public MainPage()
         {
-            this.lights = new ObservableCollection<Light>()
-            {
-                new Light(0),
-                new Light(1),
-                new Light(2),
-                new Light(3),
-                new Light(4),
-                new Light(5),
-                new Light(6)
-            };
-            this.InitializeComponent();
+            this.lights = new ObservableCollection<Light>();
             loadvalues();
+            
         }
+
 
         public async void loadvalues()
         {
             HueConnector connector = new HueConnector();
             var usernameresponse = await connector.getUsername("HUEController");
             connector.username = JSONParser.getUsername(usernameresponse);
-            var value2 = await connector.RetrieveLights();
+            if (connector.username == null)
+            {
+                // SHOW MESSAGE THAT THE BUTTON MUST BEEN PRESSED AND RESEND
+                connector.username = JSONParser.getUsername(usernameresponse);
+            }
+            else
+            {
+                var value2 = await connector.RetrieveLights();
+                this.lights = JSONParser.getLights(value2);
+            }
+            this.InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

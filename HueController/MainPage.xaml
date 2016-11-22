@@ -63,7 +63,7 @@
                                             VerticalAlignment="Center"
                                             />
                                     <Button 
-                                            Content="{x:Bind showtext, Mode=TwoWay}"
+                                            Content="{x:Bind name, Mode=TwoWay}"
                                             Margin="0,0,20,0"
                                             Click="ButtonBase_OnClick"
                                             />
