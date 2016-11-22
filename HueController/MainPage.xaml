@@ -53,7 +53,7 @@
                 </ListBox>
             </SplitView.Pane>
             <SplitView.Content>
-                <GridView ItemsSource="{x:Bind lights}" IsItemClickEnabled="False">
+                <GridView ItemsSource="{x:Bind lights}" IsItemClickEnabled="False" ItemClick="ListViewBase_OnItemClick">
                         <GridView.ItemTemplate >
                             <DataTemplate x:DataType="data:Light" >
                                 <StackPanel Orientation="Horizontal" Width="400">
@@ -63,13 +63,13 @@
                                             VerticalAlignment="Center"
                                             />
                                     <Button 
-                                            Content="{x:Bind name, Mode=TwoWay}"
+                                            Content="{x:Bind statetext, Mode=TwoWay}"
                                             Margin="0,0,20,0"
                                             Click="ButtonBase_OnClick"
                                             />
                                     <Button 
-                                            Content="Select Kleur"
-                                            Foreground="{x:Bind color, Mode=TwoWay}"
+                                            Content="Select color"
+                                            Background="{x:Bind color, Mode=TwoWay}"
                                             Click="ButtonBase_OnClick2"
                                             />
                                 </StackPanel>

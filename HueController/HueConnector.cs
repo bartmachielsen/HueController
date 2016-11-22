@@ -21,13 +21,52 @@ namespace HueController
 
         public async Task<string> RetrieveLights()
         {
+            Uri uriAllLight = new Uri($"http://{ip}:{port}/api/{username}/lights/");
+            return await get(uriAllLight));   
+
+        }
+
+        public async Task<string> getUsername(string devicetype)
+        {
+            Uri uriAllLight = new Uri($"http://{ip}:{port}/api/");
+            IHttpContent content = new HttpStringContent(JSONGenerator.getUsernameByDeviceType(devicetype), UnicodeEncoding.Utf8, "application/json");
+            return await post(uriAllLight, content);
+        }
+
+        public async Task<string> changestate(Light light)
+        {
+            
+            Uri uriAllLight = new Uri($"http://{ip}:{port}/api/{username}/lights/{light.id}/state");
+            IHttpContent content = new HttpStringContent(JSONGenerator.changeState(light.state.on), UnicodeEncoding.Utf8, "application/json");
+            return await put(uriAllLight,content);
+        }
+
+        public async Task<string> put(Uri link, IHttpContent content)
+        {
             var cts = new CancellationTokenSource();
             cts.CancelAfter(1000);
             try
             {
                 HttpClient client = new HttpClient();
-                Uri uriAllLight = new Uri($"http://{ip}:{port}/api/{username}/lights/");
-                var response = await client.GetAsync(uriAllLight);
+                var response = await client.PutAsync(link, content);
+                if (response == null || !response.IsSuccessStatusCode)
+                    return null;
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+                return jsonResponse;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        public async Task<string> get(Uri link)
+        {
+            var cts = new CancellationTokenSource();
+            cts.CancelAfter(1000);
+            try
+            {
+                HttpClient client = new HttpClient();
+                var response = await client.GetAsync(link);
                 if (response == null || !response.IsSuccessStatusCode)
                     return string.Empty;
 
@@ -40,17 +79,14 @@ namespace HueController
             }
 
         }
-
-        public async Task<string> getUsername(string devicetype)
+        public async Task<string> post(Uri link, IHttpContent content)
         {
             var cts = new CancellationTokenSource();
             cts.CancelAfter(1000);
             try
             {
                 HttpClient client = new HttpClient();
-                Uri uriAllLight = new Uri($"http://{ip}:{port}/api/");
-                IHttpContent content = new HttpStringContent(JSONGenerator.getUsernameByDeviceType(devicetype), UnicodeEncoding.Utf8, "application/json");
-                var response = await client.PostAsync(uriAllLight, content);
+                var response = await client.PostAsync(link, content);
                 if (response == null || !response.IsSuccessStatusCode)
                     return null;
                 string jsonResponse = await response.Content.ReadAsStringAsync();

@@ -17,14 +17,14 @@ namespace HueController
             dynamic json = JsonConvert.DeserializeObject(response);
             JObject obj = (JObject) json;
             ObservableCollection<Light> lights = new ObservableCollection<Light>();
+            int index = 1;
             foreach (JToken child in ((JObject)json).Children())
             {
                 dynamic dyno = child.First;
                 Light light = new Light();
-            
+                light.id = index;
                 light.name = dyno.name;
                 light.modelid = dyno.modelid;
-
                 State state = new State();
                 light.state = state;
                 state.ct = dyno.state.ct;
@@ -36,6 +36,7 @@ namespace HueController
                 state.reachable = dyno.state.reachable;
                 state.effect = dyno.state.effect;
                 lights.Add(light);
+                index++;
             }
             return lights;
         }

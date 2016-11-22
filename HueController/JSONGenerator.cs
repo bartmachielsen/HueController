@@ -16,5 +16,13 @@ namespace HueController
                 devicetype = devicetype
             });
         }
+
+        public static string changeState(bool stateOn)
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                on= stateOn
+            });
+        }
     }
 }

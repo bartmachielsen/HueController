@@ -11,6 +11,7 @@ namespace HueController.Models
     public class Light
     {
         public string name;
+        public int id;
         public string modelid { get; set; }
         public State state { get; set; }
         public string type { get; set; }
@@ -29,6 +30,11 @@ namespace HueController.Models
             }
         }
 
+        public string statetext
+        {
+            get {return state.on + ""; }
+            set { state.on = value == "True"; }
+        }
 
     }
 

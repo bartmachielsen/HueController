@@ -4,8 +4,10 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Foundation.Metadata;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -26,6 +28,7 @@ namespace HueController
     public sealed partial class MainPage : Page
     {
         private ObservableCollection<Light> lights = new ObservableCollection<Light>();
+        private HueConnector connector;
         public MainPage()
         {
             this.lights = new ObservableCollection<Light>();
@@ -36,7 +39,7 @@ namespace HueController
 
         public async void loadvalues()
         {
-            HueConnector connector = new HueConnector();
+            connector = new HueConnector();
             var usernameresponse = await connector.getUsername("HUEController");
             connector.username = JSONParser.getUsername(usernameresponse);
             if (connector.username == null)
@@ -60,15 +63,26 @@ namespace HueController
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            var button = ((Button) sender);
-            button.Content = (String)button.Content == "ON" ? "OFF" : "ON";
+            Light light = (Light)((Button)sender).DataContext;
+            light.state.on = !light.state.on;
+            ((Button)sender).Content = light.statetext;
+
+
+            connector.changestate(light);
         }
 
         private void ButtonBase_OnClick2(object sender, RoutedEventArgs e)
         {
+            Light light = (Light)((Button)sender).DataContext;
             var random = new Random();
             var button = ((Button)sender);
             button.Foreground = new SolidColorBrush(new Color() {A = (byte)random.Next(255), B = (byte)random.Next(255), G = (byte)random.Next(255), R = 255});
         }
+
+        private void ListViewBase_OnItemClick(object sender, ItemClickEventArgs e)
+        {
+        }
     }
+
+    
 }
