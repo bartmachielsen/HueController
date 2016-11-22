@@ -95,6 +95,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ColorUtil.cs" />
     <Compile Include="HueConnector.cs" />
     <Compile Include="JSONGenerator.cs" />
     <Compile Include="JSONParser.cs" />

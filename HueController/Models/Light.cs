@@ -10,37 +10,43 @@ namespace HueController.Models
 {
     public class Light
     {
-        public bool state = false;
-        public int id;
         public string name;
+        public string modelid { get; set; }
+        public State state { get; set; }
+        public string type { get; set; }
+        public string uniqueid { get; set; }
 
-        public string showtext
+        public Brush color
         {
-
-            get
+            get { return new SolidColorBrush(ColorUtil.HsvToRgb(state.hue, state.sat, state.bri)); }
+            set
             {
-                if (state)
-                    return "OFF";
-                return "ON";
-
+                double hue, sat, bri;
+                ColorUtil.RGBtoHSV(((SolidColorBrush)value).Color.R, ((SolidColorBrush)value).Color.R, ((SolidColorBrush)value).Color.R, out hue, out sat, out bri);
+                state.hue = (int)hue;
+                state.sat = (int)sat;
+                state.bri = (int)bri;
             }
-            set { state = "ON" == value; }
-
         }
 
-        public Brush color { get; set; }= new SolidColorBrush(Colors.Red);
 
-        public Light(int id)
-        {
-            this.id = id;
-            this.name = "Light" + id;
-        }
-
-        public override string ToString()
-        {
-            return $"{name}, {id}, {state}";
-        }
-
-       
     }
+
+
+    public class State
+    {
+        public IList<int> xy { get; set; }
+        public int ct { get; set; }
+        public string alert { get; set; }
+        public int sat { get; set; }
+        public string effect { get; set; }
+        public int bri { get; set; }
+        public int hue { get; set; }
+        public string colormode { get; set; }
+        public bool reachable { get; set; }
+        public bool on { get; set; }
+    }
+
+   
+
 }
