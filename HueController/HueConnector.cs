@@ -22,7 +22,7 @@ namespace HueController
         public async Task<string> RetrieveLights()
         {
             Uri uriAllLight = new Uri($"http://{ip}:{port}/api/{username}/lights/");
-            return await get(uriAllLight));   
+            return await get(uriAllLight);   
 
         }
 
@@ -35,7 +35,7 @@ namespace HueController
 
         public async Task<string> changestate(Light light)
         {
-            
+            System.Diagnostics.Debug.WriteLine(light.state.on);
             Uri uriAllLight = new Uri($"http://{ip}:{port}/api/{username}/lights/{light.id}/state");
             IHttpContent content = new HttpStringContent(JSONGenerator.changeState(light.state.on), UnicodeEncoding.Utf8, "application/json");
             return await put(uriAllLight,content);

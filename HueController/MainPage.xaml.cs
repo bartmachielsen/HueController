@@ -88,6 +88,16 @@ namespace HueController
         {
             Frame.Navigate(typeof(SettingsPage));
         }
+        
+        private void ToggleSwitch_OnToggled(object sender, RoutedEventArgs e)
+        {
+            Light light = (Light)((ToggleSwitch)sender).DataContext;
+            if (light != null && light.state != null)
+            {
+                light.state.on = !light.state.on;
+                connector.changestate(light);
+            }
+        }
     }
 
     
