@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI;
+using Windows.UI.Xaml.Media;
 
 namespace HueController.Models
 {
@@ -26,6 +28,8 @@ namespace HueController.Models
 
         }
 
+        public Brush color { get; set; }= new SolidColorBrush(Colors.Red);
+
         public Light(int id)
         {
             this.id = id;
@@ -36,5 +40,7 @@ namespace HueController.Models
         {
             return $"{name}, {id}, {state}";
         }
+
+       
     }
 }
