@@ -28,6 +28,8 @@ namespace HueController
         private ObservableCollection<Light> lights = new ObservableCollection<Light>();
         public MainPage()
         {
+            HueConnector connector = new HueConnector();
+           
             this.lights = new ObservableCollection<Light>()
             {
                 new Light(0),
@@ -38,6 +40,9 @@ namespace HueController
                 new Light(5),
                 new Light(6)
             };
+            connector.username = "2e3b9837385180b08f0471a37a2c0ee";
+            System.Diagnostics.Debug.WriteLine(connector.RetrieveLights().Result);
+            //lights.ElementAt(0).name = connector.getUsername("HUEController").Result;
             this.InitializeComponent();
             
         }
