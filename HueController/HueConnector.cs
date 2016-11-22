@@ -8,14 +8,16 @@ using System.Threading.Tasks;
 using Windows.Web.Http;
 using HueController.Models;
 using HttpClient = Windows.Web.Http.HttpClient;
+using HttpResponseMessage = Windows.Web.Http.HttpResponseMessage;
+using UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding;
 
 namespace HueController
 {
     class HueConnector
     {
-        public string ip = "127.0.0.1";
-        public int port = 8000;
-        public string username = "";
+        public string ip = "localhost";
+        public int port = 80;
+        public string username;
 
         public async Task<string> RetrieveLights()
         {
@@ -25,15 +27,18 @@ namespace HueController
             {
                 HttpClient client = new HttpClient();
                 Uri uriAllLight = new Uri($"http://{ip}:{port}/api/{username}/lights/");
-                var response = await client.GetAsync(uriAllLight).AsTask(cts.Token);
+                var response = await client.GetAsync(uriAllLight);
                 if (response == null || !response.IsSuccessStatusCode)
                     return string.Empty;
-                return await response.Content.ReadAsStringAsync();
+
+                string cont = await response.Content.ReadAsStringAsync();
+                return cont;
             }
             catch (Exception e)
             {
                 return string.Empty;
             }
+
         }
 
         public async Task<string> getUsername(string devicetype)
@@ -44,16 +49,16 @@ namespace HueController
             {
                 HttpClient client = new HttpClient();
                 Uri uriAllLight = new Uri($"http://{ip}:{port}/api/");
-                IHttpContent content = new HttpStringContent(JSONGenerator.getUsernameByDeviceType(devicetype));
-                var response = await client.PostAsync(uriAllLight, content).AsTask(cts.Token);
-                System.Diagnostics.Debug.WriteLine(response);
+                IHttpContent content = new HttpStringContent(JSONGenerator.getUsernameByDeviceType(devicetype), UnicodeEncoding.Utf8, "application/json");
+                var response = await client.PostAsync(uriAllLight, content);
                 if (response == null || !response.IsSuccessStatusCode)
-                    return string.Empty;
-                return await response.Content.ReadAsStringAsync();
+                    return null;
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+                return jsonResponse;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                return string.Empty;
+                return null;
             }
         }
     }
