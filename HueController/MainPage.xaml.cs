@@ -64,19 +64,19 @@ namespace HueController
             SplitView.IsPaneOpen = !SplitView.IsPaneOpen;
         }
        
-        private void ButtonBase_OnClick2(object sender, RoutedEventArgs e)
+        private void SelectColor_Click(object sender, RoutedEventArgs e)
         {
-            Light light = (Light)((Button)sender).DataContext;
-            var random = new Random();
-            var button = ((Button)sender);
+            Frame.Navigate(typeof(ColorPickerPage));
+            //Light light = (Light)((Button)sender).DataContext;
+            //var random = new Random();
+            //var button = ((Button)sender);
             //light.color = new SolidColorBrush(new Color() {A = (byte)random.Next(255), B = (byte)random.Next(255), G = (byte)random.Next(255), R = (byte)random.Next(255) });
-            button.Background = new SolidColorBrush(new Color() { A = (byte)random.Next(255), B = (byte)random.Next(255), G = (byte)random.Next(255), R = (byte)random.Next(255) });
-            connector.changestate(light);
+            //button.Background = new SolidColorBrush(new Color() { A = (byte)random.Next(255), B = (byte)random.Next(255), G = (byte)random.Next(255), R = (byte)random.Next(255) });
+            //connector.changestate(light);
         }
 
         private void HomepageClick(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MainPage));
         }
 
         private void SettingsClick(object sender, RoutedEventArgs e)
