@@ -17,11 +17,21 @@ namespace HueController
             });
         }
 
-        public static string changeState(bool stateOn)
+        public static string changeState(bool stateOn, int hue, int sat, int bri)
         {
+            if (!stateOn)
+            {
+                return JsonConvert.SerializeObject(new
+                {
+                    on = stateOn
+                });
+            }
             return JsonConvert.SerializeObject(new
             {
-                on= stateOn
+                on = stateOn,
+                sat = sat,
+                bri = bri,
+                hue = hue
             });
         }
     }

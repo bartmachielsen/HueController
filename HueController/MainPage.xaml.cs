@@ -32,8 +32,8 @@ namespace HueController
         public MainPage()
         {
             this.lights = new ObservableCollection<Light>();
-            loadvalues();
-            
+            this.InitializeComponent();
+            loadvalues();   
         }
 
 
@@ -50,33 +50,28 @@ namespace HueController
             else
             {
                 var value2 = await connector.RetrieveLights();
-                this.lights = JSONParser.getLights(value2);
+                lights.Clear();
+                foreach (var light in JSONParser.getLights(value2))
+                {
+                    lights.Add(light);
+                }
             }
-            this.InitializeComponent();
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             SplitView.IsPaneOpen = !SplitView.IsPaneOpen;
         }
-        
-
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-            Light light = (Light)((Button)sender).DataContext;
-            light.state.on = !light.state.on;
-            ((Button)sender).Content = light.statetext;
-
-
-            connector.changestate(light);
-        }
-
+       
         private void ButtonBase_OnClick2(object sender, RoutedEventArgs e)
         {
             Light light = (Light)((Button)sender).DataContext;
             var random = new Random();
             var button = ((Button)sender);
-            button.Foreground = new SolidColorBrush(new Color() {A = (byte)random.Next(255), B = (byte)random.Next(255), G = (byte)random.Next(255), R = 255});
+            //light.color = new SolidColorBrush(new Color() {A = (byte)random.Next(255), B = (byte)random.Next(255), G = (byte)random.Next(255), R = (byte)random.Next(255) });
+            button.Background = new SolidColorBrush(new Color() { A = (byte)random.Next(255), B = (byte)random.Next(255), G = (byte)random.Next(255), R = (byte)random.Next(255) });
+            connector.changestate(light);
         }
 
         private void HomepageClick(object sender, RoutedEventArgs e)

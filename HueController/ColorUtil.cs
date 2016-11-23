@@ -48,6 +48,7 @@ namespace HueController
 
             if (h < 0)
                 h += 360;
+            System.Diagnostics.Debug.WriteLine(h);
         }
 
         private static void HsvToRgb(double h, double S, double V, out int r, out int g, out int b)

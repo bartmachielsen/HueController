@@ -22,11 +22,7 @@ namespace HueController.Models
             get { return new SolidColorBrush(ColorUtil.HsvToRgb(state.hue, state.sat, state.bri)); }
             set
             {
-                double hue, sat, bri;
-                ColorUtil.RGBtoHSV(((SolidColorBrush)value).Color.R, ((SolidColorBrush)value).Color.R, ((SolidColorBrush)value).Color.R, out hue, out sat, out bri);
-                state.hue = (int)hue;
-                state.sat = (int)sat;
-                state.bri = (int)bri;
+               
             }
         }
 

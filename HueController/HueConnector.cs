@@ -36,8 +36,9 @@ namespace HueController
         public async Task<string> changestate(Light light)
         {
             System.Diagnostics.Debug.WriteLine(light.state.on);
+            string json = JSONGenerator.changeState(light.state.on, light.state.hue, light.state.sat, light.state.bri);
             Uri uriAllLight = new Uri($"http://{ip}:{port}/api/{username}/lights/{light.id}/state");
-            IHttpContent content = new HttpStringContent(JSONGenerator.changeState(light.state.on), UnicodeEncoding.Utf8, "application/json");
+            var content = new HttpStringContent(json, UnicodeEncoding.Utf8, "application/json");
             return await put(uriAllLight,content);
         }
 
