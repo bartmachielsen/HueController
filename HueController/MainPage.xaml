@@ -88,11 +88,13 @@
                         <GridView.ItemTemplate>
                             <DataTemplate x:DataType="data:Light" >
                                 <Grid 
+                                    Name="gridviewitem"
                                     BorderBrush="Black" 
                                     BorderThickness="2" 
                                     Padding="20,10,20,10" 
                                     Height="150" 
                                     Width="150" 
+                                    Tapped="UIElement_OnTapped"
                                     Background="{x:Bind color, Mode=TwoWay}">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
@@ -128,6 +130,6 @@
                 
             </SplitView.Content>
         </SplitView>
-        <Frame Name="Frame1"/>
+        <Frame Name="Frame1" Navigated="Frame1_Navigated"/>
     </Grid>
 </Page>

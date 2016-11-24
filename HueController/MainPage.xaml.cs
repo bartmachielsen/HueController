@@ -51,7 +51,7 @@ namespace HueController
        
         private void SelectColor_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(ColorPickerPage));
+           
             //Light light = (Light)((Button)sender).DataContext;
             //var random = new Random();
             //var button = ((Button)sender);
@@ -127,6 +127,18 @@ namespace HueController
         private void Refresh_OnClick(object sender, RoutedEventArgs e)
         {
             tryGetUsername();
+        }
+
+        private void Frame1_Navigated(object sender, NavigationEventArgs e)
+        {
+
+        }
+
+        private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            Light light = (Light)(((Grid)sender).DataContext);
+            System.Diagnostics.Debug.WriteLine(light);
+            Frame.Navigate(typeof(ColorPickerPage));
         }
     }
 

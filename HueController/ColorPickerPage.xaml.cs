@@ -52,7 +52,9 @@ namespace HueController
             HueValue = (int)HueSlider.Value;
             SaturationValue = (int) SaturationSlider.Value;
             ValueValue = (int) ValueSlider.Value;
+
             Frame.Navigate(typeof(MainPage));
+            
         }
     }
 }
