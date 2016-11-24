@@ -23,9 +23,8 @@ namespace HueController
     /// </summary>
     public sealed partial class ColorPickerPage : Page
     {
-        private int HueValue = 50;
-        private int SaturationValue = 50;
-        private int ValueValue = 50;
+        private HueConnector connector;
+        private Light light;
 
         public ColorPickerPage()
         {
@@ -42,6 +41,19 @@ namespace HueController
             Frame.Navigate(typeof(MainPage));
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            light = (Light)((object[])e.Parameter)[0];
+            if(light == null)
+                Frame.Navigate(typeof(MainPage));
+            connector = (HueConnector)((object[])e.Parameter)[1];
+            System.Diagnostics.Debug.WriteLine(light.slider[0]);
+
+            System.Diagnostics.Debug.WriteLine(light.slider[1]);
+            System.Diagnostics.Debug.WriteLine(light.slider[2]);
+        }
+
+
         private void SettingsClick(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(SettingsPage));
@@ -49,10 +61,17 @@ namespace HueController
 
         private void ApplyClick(object sender, RoutedEventArgs e)
         {
-            HueValue = (int)HueSlider.Value;
-            SaturationValue = (int) SaturationSlider.Value;
-            ValueValue = (int) ValueSlider.Value;
-
+           
+            if (light != null)
+            {
+                light.state.hue = (int)HueSlider.Value;
+                light.state.sat = (int)SaturationSlider.Value;
+                light.state.bri = (int)ValueSlider.Value;
+                if (connector != null)
+                {
+                    connector.changestate(light, true);
+                }
+            }
             Frame.Navigate(typeof(MainPage));
             
         }

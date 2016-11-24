@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:HueController"
+    xmlns:data="using:HueController.Models"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -67,10 +68,25 @@
                 </ListBox>
             </SplitView.Pane>
         </SplitView>
-        <TextBlock x:Name="LightText" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Light 1" Margin="187,20,0,0" Width="45"/>
-        <Slider x:Name="HueSlider" Value="50" HorizontalAlignment="Left" Margin="70,60,0,0" VerticalAlignment="Top" Width="280" Height="37"/>
-        <Slider x:Name="SaturationSlider" Value="50" HorizontalAlignment="Left" Margin="70,160,0,0" VerticalAlignment="Top" Width="280" Height="37"/>
-        <Slider x:Name="ValueSlider" Value="50" HorizontalAlignment="Left" Margin="70,260,0,0" VerticalAlignment="Top" Width="280" Height="37"/>
+        <TextBlock Text="{x:Bind light.name}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="187,20,0,0" Width="45"/>
+        <Slider x:Name="HueSlider" 
+                Value="{x:Bind light.slider[0], Mode=TwoWay}" 
+                Maximum="65535"
+                HorizontalAlignment="Left" 
+                Margin="70,60,0,0" VerticalAlignment="Top" Width="280" Height="37"/>
+        <Slider 
+            x:Name="SaturationSlider" 
+            Value="{x:Bind light.slider[2], Mode=TwoWay}" 
+            HorizontalAlignment="Left"
+            Maximum="254"
+            Margin="70,160,0,0" 
+            VerticalAlignment="Top" 
+            Width="280" Height="37"/>
+        <Slider x:Name="ValueSlider"
+                Value="{x:Bind light.slider[1], Mode=TwoWay}" 
+                HorizontalAlignment="Left" 
+                Maximum="254"
+                Margin="70,260,0,0" VerticalAlignment="Top" Width="280" Height="37"/>
         <TextBlock x:Name="HueText" HorizontalAlignment="Left" Text="Hue" VerticalAlignment="Top" Margin="196,100,0,0" Width="27"/>
         <TextBlock x:Name="SaturationText" HorizontalAlignment="Left" Text="Saturation" VerticalAlignment="Top" Margin="174,200,0,0" Width="70"/>
         <TextBlock x:Name="ValueText" HorizontalAlignment="Left" Text="Value" VerticalAlignment="Top" Margin="191,300,0,0" Width="37"/>

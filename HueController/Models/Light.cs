@@ -17,6 +17,19 @@ namespace HueController.Models
         public string type { get; set; }
         public string uniqueid { get; set; }
 
+
+        public string[] slider
+        {
+            get
+            {
+                return new string[] {state.hue +"", state.bri +"", state.sat +""};
+            }
+            set
+            {
+               
+            }
+        }
+
         public Brush color
         {
             get

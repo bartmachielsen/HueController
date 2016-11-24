@@ -138,7 +138,7 @@ namespace HueController
         {
             Light light = (Light)(((Grid)sender).DataContext);
             System.Diagnostics.Debug.WriteLine(light);
-            Frame.Navigate(typeof(ColorPickerPage));
+            Frame.Navigate(typeof(ColorPickerPage), new object[] {light, connector});
         }
     }
 
