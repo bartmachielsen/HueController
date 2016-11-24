@@ -1,0 +1,80 @@
+﻿<Page
+    x:Class="HueController.ColorPickerPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HueController"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+
+        <SplitView x:Name="SplitView" Grid.Column="0"
+                   DisplayMode="CompactOverlay"
+                   OpenPaneLength="180"
+                   IsPaneOpen="False"
+                   CompactPaneLength="60"
+                   >
+            <SplitView.Pane>
+                <ListBox>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Button 
+                                x:Name="EnlargeButton" 
+                                Content="&#xE700;" 
+                                FontFamily="Segoe MDL2 Assets" 
+                                Height="50" Width="50" 
+                                Background="Transparent" 
+                                Click="Button_Click"
+                                Margin="-10"
+                                />
+                        </StackPanel>
+                    </ListBoxItem>
+
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Button 
+                                x:Name="Homepage" 
+                                Content="&#xE825;" 
+                                FontFamily="Segoe MDL2 Assets" 
+                                Height="50" Width="50" 
+                                Background="Transparent"
+                                Margin="-10,0,10,0"
+                                Click="HomepageClick"
+                             />
+                            <TextBlock Text="Homepage" FontSize="18" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ListBoxItem>
+
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Button 
+                                x:Name="Settings" 
+                                Content="&#xE713;" 
+                                FontFamily="Segoe MDL2 Assets" 
+                                Height="50" Width="50" 
+                                Background="Transparent"
+                                Margin="-10,0,10,0"
+                                Click="SettingsClick"
+                             />
+                            <TextBlock Text="Settings" FontSize="18" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ListBoxItem>
+                </ListBox>
+            </SplitView.Pane>
+        </SplitView>
+        <TextBlock x:Name="LightText" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Light 1" Margin="187,20,0,0" Width="45"/>
+        <Slider x:Name="HueSlider" Value="50" HorizontalAlignment="Left" Margin="70,60,0,0" VerticalAlignment="Top" Width="280" Height="37"/>
+        <Slider x:Name="SaturationSlider" Value="50" HorizontalAlignment="Left" Margin="70,160,0,0" VerticalAlignment="Top" Width="280" Height="37"/>
+        <Slider x:Name="ValueSlider" Value="50" HorizontalAlignment="Left" Margin="70,260,0,0" VerticalAlignment="Top" Width="280" Height="37"/>
+        <TextBlock x:Name="HueText" HorizontalAlignment="Left" Text="Hue" VerticalAlignment="Top" Margin="196,100,0,0" Width="27"/>
+        <TextBlock x:Name="SaturationText" HorizontalAlignment="Left" Text="Saturation" VerticalAlignment="Top" Margin="174,200,0,0" Width="70"/>
+        <TextBlock x:Name="ValueText" HorizontalAlignment="Left" Text="Value" VerticalAlignment="Top" Margin="191,300,0,0" Width="37"/>
+        <Button x:Name="ApplyButton" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Content="Apply" Margin="159,375,0,0" Click="ApplyClick"/>
+        <Frame Name="Frame"></Frame>
+    </Grid>
+</Page>
