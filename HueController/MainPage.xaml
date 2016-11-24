@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid x:Name="FullGrid" Background="LightGray">
+    <Grid x:Name="FullGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
@@ -83,11 +83,14 @@
             </SplitView.Pane>
             <SplitView.Content>
                 <StackPanel>
-                   <GridView ItemsSource="{x:Bind lights}">
+                   <GridView ItemsSource="{x:Bind lights}" ShowsScrollingPlaceholders="True"
+                             ScrollViewer.VerticalScrollBarVisibility="Visible"
+                             >
 
                         <GridView.ItemTemplate>
                             <DataTemplate x:DataType="data:Light" >
                                 <Grid 
+                                    
                                     Name="gridviewitem"
                                     BorderBrush="Black" 
                                     BorderThickness="2" 
