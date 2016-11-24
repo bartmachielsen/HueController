@@ -65,46 +65,67 @@
                             <TextBlock Text="Settings" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Button 
+                                x:Name="Refresh" 
+                                Content="&#xE149;" 
+                                FontFamily="Segoe MDL2 Assets" 
+                                Height="50" Width="50" 
+                                Background="Transparent"
+                                Margin="-10,0,10,0"
+                                Click="Refresh_OnClick"
+                             />
+                            <TextBlock Text="Refresh" FontSize="18" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ListBoxItem>
                 </ListBox>
             </SplitView.Pane>
             <SplitView.Content>
-                <GridView ItemsSource="{x:Bind lights}" IsItemClickEnabled="False">
-                    
-                    <GridView.ItemTemplate>
-                        <DataTemplate x:DataType="data:Light" >
-                            <Grid BorderBrush="Black" BorderThickness="2" Padding="20,10,20,10" Width="300" Height="100" Background="LightBlue">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock 
+                <StackPanel>
+                   <GridView ItemsSource="{x:Bind lights}">
+
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:DataType="data:Light" >
+                                <Grid 
+                                    BorderBrush="Black" 
+                                    BorderThickness="2" 
+                                    Padding="20,10,20,10" 
+                                    Height="150" 
+                                    Width="150" 
+                                    Background="{x:Bind color, Mode=TwoWay}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock 
                                                 Text="{x:Bind name, Mode=TwoWay}" 
                                                 Grid.Row="0"
+                                                FontSize= "19"
+                                                FontWeight="ExtraBold"
                                                 Grid.Column="0"
                                                 Grid.ColumnSpan="2"
                                                 HorizontalAlignment="Center"
                                                 />
-                                <ToggleSwitch
+                                    <ToggleSwitch
                                                 IsOn="{x:Bind state.on, Mode=TwoWay}"
                                                 Grid.Row="1"
                                                 Grid.Column="0"
+                                                Grid.ColumnSpan="2"
+                                                HorizontalAlignment="Left"
                                                 Toggled="ToggleSwitch_OnToggled"
                                                 />
-                                <Button 
-                                                Content="Select color"
-                                                Background="{x:Bind color, Mode=TwoWay}"
-                                                Click="ButtonBase_OnClick2"
-                                                Grid.Row="1"
-                                                Grid.Column="1"
-                                                />
-                            </Grid>
-                        </DataTemplate>
-                    </GridView.ItemTemplate>
-                </GridView>
+                                    
+                                </Grid>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+                </StackPanel>
+                
             </SplitView.Content>
         </SplitView>
         <Frame Name="Frame1"/>

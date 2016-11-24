@@ -33,10 +33,18 @@ namespace HueController
             return await post(uriAllLight, content);
         }
 
-        public async Task<string> changestate(Light light)
+        public async Task<string> changestate(Light light, bool setColor = true)
         {
             System.Diagnostics.Debug.WriteLine(light.state.on);
-            string json = JSONGenerator.changeState(light.state.on, light.state.hue, light.state.sat, light.state.bri);
+            string json;
+            if (!setColor)
+            {
+                json = JSONGenerator.changeState(light.state.on);
+            }
+            else
+            {
+                json = JSONGenerator.changeState(light.state.on, light.state.hue, light.state.sat, light.state.bri);
+            }
             Uri uriAllLight = new Uri($"http://{ip}:{port}/api/{username}/lights/{light.id}/state");
             var content = new HttpStringContent(json, UnicodeEncoding.Utf8, "application/json");
             return await put(uriAllLight,content);

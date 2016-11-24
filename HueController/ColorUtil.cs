@@ -17,6 +17,11 @@ namespace HueController
             return Color.FromArgb(255, Convert.ToByte(r), Convert.ToByte(g), Convert.ToByte(b));
         }
 
+        public static void getHSVFromColor(Color color, out double h, out double s, out double v)
+        {
+           RGBtoHSV(color.R, color.G, color.B, out h, out s, out v);
+        }
+
         public static void RGBtoHSV(double r, double g, double b, out double h, out double s, out double v)
         {
             double min, max, delta;

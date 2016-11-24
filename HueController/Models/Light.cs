@@ -19,7 +19,12 @@ namespace HueController.Models
 
         public Brush color
         {
-            get { return new SolidColorBrush(ColorUtil.HsvToRgb(state.hue, state.sat, state.bri)); }
+            get
+            {
+                if(state.on)
+                    return new SolidColorBrush(ColorUtil.HsvToRgb(state.hue, state.sat, state.bri));
+                return new SolidColorBrush(Colors.Transparent);
+            }
             set
             {
                
