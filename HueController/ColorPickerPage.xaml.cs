@@ -26,10 +26,23 @@ namespace HueController
     {
         private HueConnector connector;
         private Light light;
+        private List<Light> lights;
 
         public ColorPickerPage()
         {
             this.InitializeComponent();
+            GradientStopCollection collection = new GradientStopCollection();
+            for (int i = 0; i < 100; i++)
+            {
+                collection.Add(new GradientStop() {Color= ColorUtil.getColor(655.35* i,254,254), Offset = i/100.0});
+            }
+            
+            HueSlider.Background = new LinearGradientBrush()
+            {
+                GradientStops = collection
+            };
+            
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -44,9 +57,21 @@ namespace HueController
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            light = (Light)((object[])e.Parameter)[0];
-            if(light == null)
-                Frame.Navigate(typeof(LightView));
+            if(((object[])e.Parameter)[0] is Light)
+                light = (Light)((object[])e.Parameter)[0];
+            if (((object[]) e.Parameter)[0] is List<Light>)
+            {
+                lights = (List<Light>) ((object[]) e.Parameter)[0];
+                if (lights.Count == 0)
+                {
+                    Frame.Navigate(typeof(LightView), connector.room);
+                    return;
+                }
+                light = lights.First();
+            }
+
+            if (light == null && lights == null)
+                Frame.Navigate(typeof(LightView), connector.room);
             connector = (HueConnector)((object[])e.Parameter)[1];
         }
 
@@ -58,12 +83,26 @@ namespace HueController
 
         private void ApplyClick(object sender, RoutedEventArgs e)
         {
-           
-            if (light != null)
+
+            if (lights != null)
             {
-                light.state.hue = (int)HueSlider.Value;
-                light.state.sat = (int)SaturationSlider.Value;
-                light.state.bri = (int)ValueSlider.Value;
+                foreach (var light2 in lights)
+                {
+                    light2.state.hue = (int)HueSlider.Value;
+                    light2.state.sat = (int)SaturationSlider.Value;
+                    light2.state.bri = (int)ValueSlider.Value;
+                    if (connector != null)
+                    {
+                        connector.changestate(light2, true);
+                    }
+                }
+                
+            }
+            else if(light != null)
+            {
+                light.state.hue = (int) HueSlider.Value;
+                light.state.sat = (int) SaturationSlider.Value;
+                light.state.bri = (int) ValueSlider.Value;
                 if (connector != null)
                 {
                     connector.changestate(light, true);
@@ -78,6 +117,11 @@ namespace HueController
             var slider = (Slider) sender;
             TitleBlock.Foreground = new SolidColorBrush(ColorUtil.getColor((int)HueSlider.Value, (int)SaturationSlider.Value, (int)ValueSlider.Value));
         
+        }
+
+        private void ChangeName(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

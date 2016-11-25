@@ -30,13 +30,14 @@ namespace HueController
     {
         private ObservableCollection<Light> lights = new ObservableCollection<Light>();
         private HueConnector connector;
+        private bool select = false;
         public LightView()
         {
             this.lights = new ObservableCollection<Light>();
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             
@@ -51,7 +52,10 @@ namespace HueController
                 
                 
             }
-            getLights();
+            if (! await getLights())
+            {
+                Frame.Navigate(typeof(RoomView), connector.room);
+            }
         }
 
         
@@ -86,7 +90,7 @@ namespace HueController
 
        
 
-        public async void getLights()
+        public async Task<bool> getLights()
         {
             
             if (connector != null && connector.room != null && connector.room.username != null && connector.room.username != "")
@@ -95,12 +99,13 @@ namespace HueController
                 lights.Clear();
                 var locallights = JSONParser.getLights(value2);
                 if (locallights == null)
-                    return;
+                    return false;
            
                 foreach (var light in locallights)
                     lights.Add(light);
-                
+                return true;
             }
+            return false;
         }
 
         
@@ -117,13 +122,47 @@ namespace HueController
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
         {
+            
             Light light = (Light)(((Grid)sender).DataContext);
-            Frame.Navigate(typeof(ColorPickerPage), new object[] {light, connector});
+            if (select)
+            {
+                light.selected = !light.selected;
+                if (light.selected)
+                {
+                    ((Grid) sender).Background = new SolidColorBrush(Colors.Transparent);
+                }
+                else
+                {
+                    ((Grid) sender).Background = light.color;
+                }
+            }
+            else
+            {
+                Frame.Navigate(typeof(ColorPickerPage), new object[] {light, connector});
+            }
         }
 
         private void Back_OnClick(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
+        }
+
+      
+        private void SelectMore(object sender, RoutedEventArgs e)
+        {
+            select = !select;
+            ApllyAll.Visibility = @select ? Visibility.Visible : Visibility.Collapsed;
+            foreach (var light in lights)
+            {
+                light.selected = false;
+            }
+        }
+
+        private void ApllyAll_OnClick(object sender, RoutedEventArgs e)
+        {
+           List<Light> lightsfiltered = new List<Light>(lights);
+           lightsfiltered.RemoveAll((Light light) => !light.selected);
+            Frame.Navigate(typeof(ColorPickerPage), new object[] { lightsfiltered, connector });
         }
     }
 

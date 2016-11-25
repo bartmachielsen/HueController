@@ -29,7 +29,14 @@ namespace HueController.Models
             this.name = name;
             this.addres = addres;
             this.port = port;
-            this.username = username;
+            if (username == "" || username == "")
+            {
+                this.username = null;
+            }
+            else
+            {
+                this.username = username;
+            }
         }
     }
 }

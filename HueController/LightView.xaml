@@ -92,6 +92,37 @@
                             <TextBlock Text="Back" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Button 
+                                Content="&#xE149;" 
+                                FontFamily="Segoe MDL2 Assets" 
+                                Height="50" Width="50" 
+                                Background="Transparent"
+                                Margin="-10,0,10,0"
+                                Click="SelectMore"
+                             />
+                            <TextBlock Text="Select" FontSize="18" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel 
+                            Name="ApllyAll"
+                            Orientation="Horizontal"
+                            Visibility="Collapsed">
+                            <Button 
+                                
+                                Content="&#xE149;" 
+                                FontFamily="Segoe MDL2 Assets" 
+                                Height="50" Width="50" 
+                                Background="Transparent"
+                                Margin="-10,0,10,0"
+                                
+                                Click="ApllyAll_OnClick"
+                             />
+                            <TextBlock Text="ChangeAll" FontSize="18" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ListBoxItem>
                 </ListBox>
             </SplitView.Pane>
             <SplitView.Content>
@@ -125,6 +156,7 @@
                                                 Grid.Column="0"
                                                 Grid.ColumnSpan="2"
                                                 HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
                                                 />
                                 <ToggleSwitch
                                                 IsOn="{x:Bind state.on, Mode=TwoWay}"
@@ -134,6 +166,7 @@
                                                 HorizontalAlignment="Left"
                                                 Toggled="ToggleSwitch_OnToggled"
                                                 />
+                                
 
                             </Grid>
                         </DataTemplate>

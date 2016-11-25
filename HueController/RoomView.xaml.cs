@@ -70,6 +70,15 @@ namespace HueController
             }
         }
 
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.Parameter != null && e.Parameter is Room)
+            {
+                await new MessageDialog($"{((Room)e.Parameter).name} is not reachable!", "Connection error").ShowAsync();
+            }
+        }
+
         public void saveRooms(Windows.Storage.ApplicationDataContainer localSettings = null)
         {
             if(localSettings == null) {

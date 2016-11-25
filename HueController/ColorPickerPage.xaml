@@ -65,6 +65,19 @@
                             <TextBlock Text="Settings" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Button 
+                                Content="&#xE713;" 
+                                FontFamily="Segoe MDL2 Assets" 
+                                Height="50" Width="50" 
+                                Background="Transparent"
+                                Margin="-10,0,10,0"
+                                Click="ChangeName"
+                             />
+                            <TextBlock Text="Name" FontSize="18" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ListBoxItem>
                 </ListBox>
             </SplitView.Pane>
         </SplitView>
@@ -74,6 +87,7 @@
                 HorizontalAlignment="Center" 
                 Margin="0,50,0,0" 
                 Name="TitleBlock"
+                
                 TextWrapping="Wrap"
             />
             <Slider x:Name="HueSlider" 
@@ -81,6 +95,8 @@
                 Maximum="65535"
                 MinWidth="{Binding ElementName=Stack, Path=ActualWidth}" 
                 Margin="15,50,15,0"
+                Foreground="Transparent"
+                
                 ValueChanged="sliderValueChanged"
             />
             <TextBlock
@@ -109,6 +125,7 @@
                 MinWidth="{Binding ElementName=Stack, Path=ActualWidth}"
                 Margin="15,50,15,0"
                 ValueChanged="sliderValueChanged"
+                
             />
             <TextBlock 
                 HorizontalAlignment="Center" 

@@ -13,10 +13,12 @@ namespace HueController.Models
     {
         public string name;
         public int id;
+        public bool selected { get; set; } = false;
         public string modelid { get; set; }
         public State state { get; set; }
         public string type { get; set; }
         public string uniqueid { get; set; }
+        
 
         public string[] slider
         {
