@@ -39,6 +39,7 @@ namespace HueController
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            
             if (e.Parameter == null && connector != null && connector.room != null)
             {
                 return;
@@ -50,14 +51,10 @@ namespace HueController
                 
                 
             }
-            loadvalues();
+            getLights();
         }
 
-        public async void loadvalues()
-        {
-            
-            tryGetUsername();
-        }
+        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -87,55 +84,30 @@ namespace HueController
             }
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-            tryGetUsername();
-        }
+       
 
-        public async void tryGetUsername()
+        public async void getLights()
         {
-            if (connector.room.username == null)
-            {
-                var usernameresponse = await connector.getUsername("HueController");
-                if (usernameresponse == null)
-                {
-                    connectionDied();
-                    return;
-                }
-                System.Diagnostics.Debug.WriteLine("GETTING USERNAME " + connector.room);
-                connector.room.username = JSONParser.getUsername(usernameresponse);
-                System.Diagnostics.Debug.WriteLine("USERNAME " + connector.room.username);
-            }
-            if (connector.room.username != null)
+            
+            if (connector != null && connector.room != null && connector.room.username != null && connector.room.username != "")
             {
                 var value2 = await connector.RetrieveLights();
-                if (value2 == null)
-                {
-                    connectionDied();
-                    return;
-                }
                 lights.Clear();
-                foreach (var light in JSONParser.getLights(value2))
-                {
+                var locallights = JSONParser.getLights(value2);
+                if (locallights == null)
+                    return;
+           
+                foreach (var light in locallights)
                     lights.Add(light);
-                }
-            }
-            else
-            {
-                await new MessageDialog("Please press HueBox Button").ShowAsync();
-                tryGetUsername();
+                
             }
         }
 
-        public async void connectionDied()
-        {
-            await new MessageDialog("No Connection found with HueBox").ShowAsync();
-            tryGetUsername();
-        }
+        
 
         private void Refresh_OnClick(object sender, RoutedEventArgs e)
         {
-            tryGetUsername();
+            getLights();
         }
 
         private void Frame1_Navigated(object sender, NavigationEventArgs e)

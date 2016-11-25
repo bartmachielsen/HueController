@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.Devices.Sms;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Foundation.Metadata;
@@ -30,25 +31,107 @@ namespace HueController
     public sealed partial class RoomView : Page
     {
         public ObservableCollection<Room> rooms = new ObservableCollection<Room>();
-        
+        public bool busy = false;
         public RoomView()
         {
             InitializeComponent();
-            rooms.Add(new Room(0, "Simulator","127.0.0.1", 80));
-            rooms.Add(new Room(1, "Simulator demo", "127.0.0.1", 80));
+            loadFromSave();
+        }
+
+        public void loadFromSave()
+        {
+            Windows.Storage.ApplicationDataContainer localSettings =
+                Windows.Storage.ApplicationData.Current.LocalSettings;
+            if (localSettings.Values.ContainsKey("rooms"))
+            {
+                System.Diagnostics.Debug.WriteLine("Loaded info!");
+                var list = ((string) localSettings.Values["rooms"]).Split(',');
+                foreach (var item in list)
+                {
+                    var splitted = item.Split(':');
+                    string username = null;
+                    if (splitted.Length > 3)
+                    {
+                        username = splitted[3];
+                        System.Diagnostics.Debug.WriteLine("Loaded username " + username);
+                    }
+                    if(splitted.Length > 2)
+                        rooms.Add(new Room(rooms.Count, splitted[0], splitted[1], Int32.Parse(splitted[2]), username));
+                }
+                if (rooms.Count == 0)
+                {
+                    rooms.Add(new Room(0, "Explora", "145.48.205.33", 80, "iYrmsQq1wu5FxF9CPqpJCnm1GpPVylKBWDUsNDhB"));
+                    saveRooms(localSettings);
+                }
+            }
+            else
+            {
+                saveRooms(localSettings);
+            }
+        }
+
+        public void saveRooms(Windows.Storage.ApplicationDataContainer localSettings = null)
+        {
+            if(localSettings == null) {
+                localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            }
+            List<string> ser = new List<string>();
+            foreach (var room in rooms)
+            {
+                ser.Add($"{room.name}:{room.addres}:{room.port}:{room.username}");
+            }
+            localSettings.Values["rooms"] = string.Join(",", ser);
         }
 
         private void EnlargeButton_OnClick(object sender, RoutedEventArgs e)
         {
             SplitView.IsPaneOpen = !SplitView.IsPaneOpen;
         }
-
-        private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
+        
+        private async void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
         {
-            Room room = (Room)((Button) sender).DataContext;
-            Frame.Navigate(typeof(LightView), room);
+            
+            Room room = ((Room)((Grid) sender).DataContext);
+            
+            if (busy || !rooms.Contains(room))
+                return;
+            string username = await getUsername(room);
+            if (username != null && username != "-1" && username != "")
+            {
+                room.username = username;
+                saveRooms();
+                Frame.Navigate(typeof(LightView), room);
+            }
+            else if (username == null)
+            {
+                //((Button) sender).Flyout = new Flyout() {Content = new TextBlock() {Text = "Druk op de HueBoxKnop!"}};
+                await new MessageDialog($"You need to push the link button on the HueBox of {room.name}!", "Action Required").ShowAsync();
+            }
+            else
+            {
+                //((Grid)sender). = new Flyout() { Content = new TextBlock() { Text = "Geen verbinding beschikbaar!" } };
+                await new MessageDialog($"{room.name} is not reachable!", "Connection error").ShowAsync();
+            }
         }
 
+        public async Task<string> getUsername(Room room)
+        {
+            HueConnector connector = new HueConnector(room);
+            if (room.username == null)
+            {
+                System.Diagnostics.Debug.WriteLine("Getting username");
+                var usernameresponse = await connector.getUsername("HueController");
+                if (usernameresponse == null)
+                {
+                    return "-1";
+                }
+                return JSONParser.getUsername(usernameresponse);
+            }
+            else
+            {
+                return room.username;
+            }
+        }
         private void Homepage_OnClick(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(RoomView));
@@ -57,6 +140,46 @@ namespace HueController
         private void Back_OnClick(object sender, RoutedEventArgs e)
         {
             Frame.GoBack();
+        }
+
+        private async void Addroom_OnClick(object sender, RoutedEventArgs e)
+        {
+            var creater = new RoomCreate();
+            var result = await creater.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                rooms.Add(new Room(rooms.Count, creater.getInputted()[0], creater.getInputted()[1],
+                    Int32.Parse(creater.getInputted()[2]), creater.getInputted()[3]));
+
+                saveRooms();
+            }
+        }
+
+        private async void ChangeRoom(object sender, RoutedEventArgs e)
+        {
+            busy = true;
+            Room room = (Room) ((Button) sender).DataContext;
+            var creater = new RoomCreate(room);
+            var result = await creater.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                room.name = creater.getInputted()[0];
+                room.addres = creater.getInputted()[1];
+                room.port = Int32.Parse(creater.getInputted()[2]);
+                room.username = creater.getInputted()[3];
+
+                saveRooms();
+            }
+            busy = false;
+        }
+
+        private void DeleteRoom(object sender, RoutedEventArgs e)
+        {
+            busy = true;
+            Room room = (Room)((Button)sender).DataContext;
+            rooms.Remove(room);
+            saveRooms();
+            busy = false;
         }
     }
 }
