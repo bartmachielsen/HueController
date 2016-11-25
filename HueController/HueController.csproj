@@ -105,6 +105,11 @@
     <Compile Include="LightView.xaml.cs">
       <DependentUpon>LightView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Animations\BlinkAnimation.cs" />
+    <Compile Include="Models\IAnimation.cs" />
+    <Compile Include="Models\Animations\ColorswitchAnimation.cs" />
+    <Compile Include="Models\Animations\RandomAnimation.cs" />
+    <Compile Include="Models\Animations\SmoothAnimation.cs" />
     <Compile Include="Models\Room.cs" />
     <Compile Include="RoomView.xaml.cs">
       <DependentUpon>RoomView.xaml</DependentUpon>

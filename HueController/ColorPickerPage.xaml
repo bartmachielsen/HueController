@@ -68,29 +68,78 @@
                 </ListBox>
             </SplitView.Pane>
         </SplitView>
-        <TextBlock Text="{x:Bind light.name}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="187,20,0,0" Width="45"/>
-        <Slider x:Name="HueSlider" 
+        <StackPanel x:Name="Stack" Margin="60,0,0,0">
+            <TextBlock 
+                Text="{x:Bind light.name}" 
+                HorizontalAlignment="Center" 
+                Margin="0,50,0,0" 
+                TextWrapping="Wrap"
+            />
+            <Slider x:Name="HueSlider" 
                 Value="{x:Bind light.slider[0], Mode=TwoWay}" 
                 Maximum="65535"
-                HorizontalAlignment="Left" 
-                Margin="70,60,0,0" VerticalAlignment="Top" Width="280" Height="37"/>
-        <Slider 
-            x:Name="SaturationSlider" 
-            Value="{x:Bind light.slider[2], Mode=TwoWay}" 
-            HorizontalAlignment="Left"
-            Maximum="254"
-            Margin="70,160,0,0" 
-            VerticalAlignment="Top" 
-            Width="280" Height="37"/>
-        <Slider x:Name="ValueSlider"
-                Value="{x:Bind light.slider[1], Mode=TwoWay}" 
-                HorizontalAlignment="Left" 
+                MinWidth="{Binding ElementName=Stack, Path=ActualWidth}" 
+                Margin="15,50,15,0"
+            />
+            <TextBlock
+                HorizontalAlignment="Center" 
+                Text="Hue" 
+                TextWrapping="Wrap"
+                Margin="0,5,0,0"
+            />
+            <Slider 
+                x:Name="SaturationSlider" 
+                Value="{x:Bind light.slider[2], Mode=TwoWay}"
                 Maximum="254"
-                Margin="70,260,0,0" VerticalAlignment="Top" Width="280" Height="37"/>
-        <TextBlock x:Name="HueText" HorizontalAlignment="Left" Text="Hue" VerticalAlignment="Top" Margin="196,100,0,0" Width="27"/>
-        <TextBlock x:Name="SaturationText" HorizontalAlignment="Left" Text="Saturation" VerticalAlignment="Top" Margin="174,200,0,0" Width="70"/>
-        <TextBlock x:Name="ValueText" HorizontalAlignment="Left" Text="Value" VerticalAlignment="Top" Margin="191,300,0,0" Width="37"/>
-        <Button x:Name="ApplyButton" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Content="Apply" Margin="159,375,0,0" Click="ApplyClick"/>
+                MinWidth="{Binding ElementName=Stack, Path=ActualWidth}"
+                Margin="15,50,15,0"
+            />
+            <TextBlock
+                HorizontalAlignment="Center" 
+                Text="Saturation" 
+                TextWrapping="Wrap"
+                Margin="0,5,0,0"
+            />
+            <Slider x:Name="ValueSlider"
+                Value="{x:Bind light.slider[1], Mode=TwoWay}" 
+                Maximum="254"
+                MinWidth="{Binding ElementName=Stack, Path=ActualWidth}"
+                Margin="15,50,15,0"
+            />
+            <TextBlock 
+                HorizontalAlignment="Center" 
+                Text="Value" 
+                TextWrapping="Wrap"
+                Margin="0,5,0,0"
+            />
+            <Button x:Name="ApplyButton" 
+                HorizontalAlignment="Center" 
+                Width="100" 
+                Content="Apply" 
+                Margin="0,50,0,0" 
+                Click="ApplyClick"
+            />
+            <Grid Margin="0,50,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                
+                <ComboBox 
+                    HorizontalAlignment="Center"
+                    <!--SelectedItem="{x:Bind SelectedOption, Mode = TwoWay}"-->
+                />
+                <Button
+                    Grid.Column="1"
+                    Content="Animate"
+                    Width="30"
+                />
+            </Grid>
+        </StackPanel>
         <Frame Name="Frame"></Frame>
     </Grid>
 </Page>

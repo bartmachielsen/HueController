@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI;
+using Windows.UI.Composition;
 using Windows.UI.Xaml.Media;
 
 namespace HueController.Models
@@ -16,7 +17,6 @@ namespace HueController.Models
         public State state { get; set; }
         public string type { get; set; }
         public string uniqueid { get; set; }
-
 
         public string[] slider
         {
@@ -49,9 +49,7 @@ namespace HueController.Models
             get {return state.on + ""; }
             set { state.on = value == "True"; }
         }
-
     }
-
 
     public class State
     {
@@ -66,7 +64,4 @@ namespace HueController.Models
         public bool reachable { get; set; }
         public bool on { get; set; }
     }
-
-   
-
 }
