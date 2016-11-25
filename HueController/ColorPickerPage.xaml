@@ -131,12 +131,11 @@
                 
                 <ComboBox 
                     HorizontalAlignment="Center"
-                    <!--SelectedItem="{x:Bind SelectedOption, Mode = TwoWay}"-->
                 />
                 <Button
+                    HorizontalAlignment="Center"
                     Grid.Column="1"
                     Content="Animate"
-                    Width="30"
                 />
             </Grid>
         </StackPanel>
