@@ -78,13 +78,12 @@
                 </ListBox>
             </SplitView.Pane>
             <SplitView.Content>
-                <GridView ItemsSource="{x:Bind rooms}" x:Name ="grid">
+                <GridView ItemsSource="{x:Bind rooms}">
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="data:Room">
-                            <GridView Width="400" Height="100">
-                                <TextBlock Text="{x:Bind name}"/>
+                            <GridView Width="400" Height="100" Tapped="UIElement_OnTapped">
+                                <TextBlock Text="{x:Bind name, Mode=TwoWay}"/>
                             </GridView>
-                            
                         </DataTemplate>
                     </GridView.ItemTemplate>
                 </GridView>

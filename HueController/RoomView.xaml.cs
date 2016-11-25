@@ -40,5 +40,11 @@ namespace HueController
         {
             SplitView.IsPaneOpen = !SplitView.IsPaneOpen;
         }
+
+        private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            Room room = (Room)((GridView) sender).DataContext;
+            Frame.Navigate(typeof(LightView), room);
+        }
     }
 }

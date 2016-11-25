@@ -11,6 +11,7 @@ namespace HueController.Models
         public string name { get; set; }
         public string addres { get; set; }
         public int port { get; set; }
+        public string username { get; set; }
 
         public Room(string name, string addres, int port)
         {

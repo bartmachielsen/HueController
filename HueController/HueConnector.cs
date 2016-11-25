@@ -19,6 +19,13 @@ namespace HueController
         public int port = 80;
         public string username;
 
+        public HueConnector(string ip, int port, string username = null)
+        {
+            this.ip = ip;
+            this.port = port;
+            this.username = username;
+        }
+
         public async Task<string> RetrieveLights()
         {
             Uri uriAllLight = new Uri($"http://{ip}:{port}/api/{username}/lights/");
