@@ -64,6 +64,34 @@
                             <TextBlock Text="Settings" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Button 
+                                x:Name="Back" 
+                                Content="&#59179;" 
+                                FontFamily="Segoe MDL2 Assets" 
+                                Height="50" Width="50" 
+                                Background="Transparent"
+                                Margin="-10,0,10,0"
+                                Click="Back_OnClick"
+                             />
+                            <TextBlock Text="Back" FontSize="18" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Button 
+                                x:Name="Addroom" 
+                                Content="&#59152;" 
+                                FontFamily="Segoe MDL2 Assets" 
+                                Height="50" Width="50" 
+                                Background="Transparent"
+                                Margin="-10,0,10,0"
+                                Click="Addroom_OnClick"
+                             />
+                            <TextBlock Text="Add Room" FontSize="18" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ListBoxItem>
                 </ListBox>
             </SplitView.Pane>
         </SplitView>

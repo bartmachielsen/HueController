@@ -67,22 +67,8 @@
                     <ListBoxItem>
                         <StackPanel Orientation="Horizontal">
                             <Button 
-                                x:Name="Refresh" 
-                                Content="&#xE149;" 
-                                FontFamily="Segoe MDL2 Assets" 
-                                Height="50" Width="50" 
-                                Background="Transparent"
-                                Margin="-10,0,10,0"
-                                Click="Refresh_OnClick"
-                             />
-                            <TextBlock Text="Refresh" FontSize="18" VerticalAlignment="Center" />
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        <StackPanel Orientation="Horizontal">
-                            <Button 
                                 x:Name="Back" 
-                                Content="&#xE149;" 
+                                Content="&#59179;" 
                                 FontFamily="Segoe MDL2 Assets" 
                                 Height="50" Width="50" 
                                 Background="Transparent"
@@ -90,6 +76,20 @@
                                 Click="Back_OnClick"
                              />
                             <TextBlock Text="Back" FontSize="18" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Button 
+                                x:Name="Addroom" 
+                                Content="&#59152;" 
+                                FontFamily="Segoe MDL2 Assets" 
+                                Height="50" Width="50" 
+                                Background="Transparent"
+                                Margin="-10,0,10,0"
+                                Click="Addroom_OnClick"
+                             />
+                            <TextBlock Text="Add Room" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem>
