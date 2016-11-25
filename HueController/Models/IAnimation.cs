@@ -8,6 +8,6 @@ namespace HueController.Models
 {
     interface IAnimation
     {
-        List<int[]> Animate(Light light);
+        List<int[]> Animate();
     }
 }
