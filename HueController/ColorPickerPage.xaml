@@ -95,6 +95,7 @@
                 Maximum="254"
                 MinWidth="{Binding ElementName=Stack, Path=ActualWidth}"
                 Margin="15,50,15,0"
+                ValueChanged="sliderValueChanged"
             />
             <TextBlock
                 HorizontalAlignment="Center" 
@@ -107,6 +108,7 @@
                 Maximum="254"
                 MinWidth="{Binding ElementName=Stack, Path=ActualWidth}"
                 Margin="15,50,15,0"
+                ValueChanged="sliderValueChanged"
             />
             <TextBlock 
                 HorizontalAlignment="Center" 

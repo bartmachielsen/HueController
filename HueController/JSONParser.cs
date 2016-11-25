@@ -15,6 +15,11 @@ namespace HueController
         public static ObservableCollection<Light> getLights(string response)
         {
             dynamic json = JsonConvert.DeserializeObject(response);
+            if (!(json is JObject))
+            {
+                System.Diagnostics.Debug.WriteLine(response);
+                return null;
+            }
             JObject obj = (JObject) json;
             ObservableCollection<Light> lights = new ObservableCollection<Light>();
             int index = 1;
