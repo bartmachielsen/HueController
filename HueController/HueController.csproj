@@ -105,6 +105,7 @@
     <Compile Include="LightView.xaml.cs">
       <DependentUpon>LightView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Room.cs" />
     <Compile Include="RoomView.xaml.cs">
       <DependentUpon>RoomView.xaml</DependentUpon>
     </Compile>

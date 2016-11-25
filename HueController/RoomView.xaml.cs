@@ -26,11 +26,14 @@ namespace HueController
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
+    ///
     public sealed partial class RoomView : Page
     {
+        public ObservableCollection<Room> rooms = new ObservableCollection<Room>();
         public RoomView()
         {
             InitializeComponent();
+            rooms.Add(new Room("Simulator","127.0.0.1", 80));
         }
 
         private void EnlargeButton_OnClick(object sender, RoutedEventArgs e)
