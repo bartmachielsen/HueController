@@ -30,6 +30,7 @@ namespace HueController
     public sealed partial class RoomView : Page
     {
         public ObservableCollection<Room> rooms = new ObservableCollection<Room>();
+        
         public RoomView()
         {
             InitializeComponent();

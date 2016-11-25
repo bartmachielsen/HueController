@@ -30,7 +30,6 @@ namespace HueController
     {
         private ObservableCollection<Light> lights = new ObservableCollection<Light>();
         private HueConnector connector;
-        private List<string> usernames = new List<string>();
         public LightView()
         {
             this.lights = new ObservableCollection<Light>();
@@ -47,10 +46,7 @@ namespace HueController
             if (e.Parameter is Room)
             {
                 Room room = (Room) e.Parameter;
-                System.Diagnostics.Debug.WriteLine(room.username + " USERNAME");
                 connector = new HueConnector(room);
-                if (usernames.Count > room.id)
-                    connector.room.username = usernames.ElementAt(room.id);
                 
                 
             }
@@ -106,9 +102,9 @@ namespace HueController
                     connectionDied();
                     return;
                 }
-                System.Diagnostics.Debug.WriteLine("GETTING USERNAME " + connector.room.username);
+                System.Diagnostics.Debug.WriteLine("GETTING USERNAME " + connector.room);
                 connector.room.username = JSONParser.getUsername(usernameresponse);
-                usernames.Insert(connector.room.id, connector.room.username);
+                System.Diagnostics.Debug.WriteLine("USERNAME " + connector.room.username);
             }
             if (connector.room.username != null)
             {
