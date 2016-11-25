@@ -13,7 +13,7 @@ using UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding;
 
 namespace HueController
 {
-    class HueConnector
+   public class HueConnector
     {
        
         public Room room;

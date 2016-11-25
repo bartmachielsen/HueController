@@ -47,10 +47,6 @@ namespace HueController
             if(light == null)
                 Frame.Navigate(typeof(LightView));
             connector = (HueConnector)((object[])e.Parameter)[1];
-            System.Diagnostics.Debug.WriteLine(light.slider[0]);
-
-            System.Diagnostics.Debug.WriteLine(light.slider[1]);
-            System.Diagnostics.Debug.WriteLine(light.slider[2]);
         }
 
 
@@ -72,7 +68,7 @@ namespace HueController
                     connector.changestate(light, true);
                 }
             }
-            Frame.Navigate(typeof(LightView));
+            Frame.Navigate(typeof(LightView), connector.room);
             
         }
     }

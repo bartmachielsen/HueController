@@ -43,12 +43,43 @@ namespace HueController
             SplitView.IsPaneOpen = !SplitView.IsPaneOpen;
         }
 
-        private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
+        private async void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
         {
-            Room room = (Room)((Button) sender).DataContext;
-            Frame.Navigate(typeof(LightView), room);
+            Room room = rooms.ElementAt(((Room)((Button) sender).DataContext).id);
+            string username = await getUsername(room);
+            if (username != null && username != "-1")
+            {
+                room.username = username;
+                Frame.Navigate(typeof(LightView), room);
+            }
+            else if (username == null)
+            {
+                ((Button) sender).Flyout = new Flyout() {Content = new TextBlock() {Text = "Druk op de HueBoxKnop!"}};
+            }
+            else
+            {
+                ((Button)sender).Flyout = new Flyout() { Content = new TextBlock() { Text = "Geen verbinding beschikbaar!" } };
+            }
         }
 
+        public async Task<string> getUsername(Room room)
+        {
+            HueConnector connector = new HueConnector(room);
+            if (room.username == null)
+            {
+                System.Diagnostics.Debug.WriteLine("Getting username");
+                var usernameresponse = await connector.getUsername("HueController");
+                if (usernameresponse == null)
+                {
+                    return "-1";
+                }
+                return JSONParser.getUsername(usernameresponse);
+            }
+            else
+            {
+                return room.username;
+            }
+        }
         private void Homepage_OnClick(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(RoomView));
