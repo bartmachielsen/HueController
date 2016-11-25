@@ -73,6 +73,7 @@
                 Text="{x:Bind light.name}" 
                 HorizontalAlignment="Center" 
                 Margin="0,50,0,0" 
+                Name="TitleBlock"
                 TextWrapping="Wrap"
             />
             <Slider x:Name="HueSlider" 
@@ -80,6 +81,7 @@
                 Maximum="65535"
                 MinWidth="{Binding ElementName=Stack, Path=ActualWidth}" 
                 Margin="15,50,15,0"
+                ValueChanged="sliderValueChanged"
             />
             <TextBlock
                 HorizontalAlignment="Center" 

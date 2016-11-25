@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -70,6 +71,13 @@ namespace HueController
             }
             Frame.Navigate(typeof(LightView), connector.room);
             
+        }
+
+        private void sliderValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            var slider = (Slider) sender;
+            TitleBlock.Foreground = new SolidColorBrush(ColorUtil.getColor((int)HueSlider.Value, (int)SaturationSlider.Value, (int)ValueSlider.Value));
+        
         }
     }
 }
