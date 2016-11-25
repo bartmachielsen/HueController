@@ -77,21 +77,61 @@
                             <TextBlock Text="Back" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Button 
+                                x:Name="Addroom" 
+                                Content="&#xE149;" 
+                                FontFamily="Segoe MDL2 Assets" 
+                                Height="50" Width="50" 
+                                Background="Transparent"
+                                Margin="-10,0,10,0"
+                                Click="Addroom_OnClick"
+                             />
+                            <TextBlock Text="Add Room" FontSize="18" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ListBoxItem>
                 </ListBox>
             </SplitView.Pane>
             <SplitView.Content>
                 <GridView ItemsSource="{x:Bind rooms}">
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="data:Room">
-                            <Button
+                            <Grid
                                 Tapped="UIElement_OnTapped"
                                 BorderBrush="Black" 
-                                Background="{x:Bind background}"
+                                Background="LightBlue"
                                 BorderThickness="2" 
-                                Height="150" 
-                                Content="{x:Bind name, Mode=TwoWay}"
+                                Height="150"
                                 Width="150" >
-                            </Button>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock 
+                                    Text="{x:Bind name}" 
+                                    Grid.Row="0" Grid.Column="0" 
+                                    Grid.ColumnSpan="2" 
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"/>
+                                <Button 
+                                    Content="Edit"
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Click="changeButton"/>
+                                <Button 
+                                    Content="Delete"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"/>
+                            </Grid>
                         </DataTemplate>
                     </GridView.ItemTemplate>
                 </GridView>

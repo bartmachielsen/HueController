@@ -18,6 +18,10 @@ namespace HueController
             JObject obj = (JObject) json;
             ObservableCollection<Light> lights = new ObservableCollection<Light>();
             int index = 1;
+            if (json == null)
+            {
+                return null;
+            }
             foreach (JToken child in ((JObject)json).Children())
             {
                 dynamic dyno = child.First;

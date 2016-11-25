@@ -106,6 +106,9 @@
       <DependentUpon>LightView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Room.cs" />
+    <Compile Include="RoomCreate.xaml.cs">
+      <DependentUpon>RoomCreate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RoomView.xaml.cs">
       <DependentUpon>RoomView.xaml</DependentUpon>
     </Compile>
@@ -141,6 +144,10 @@
     <Page Include="LightView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RoomCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RoomView.xaml">
       <Generator>MSBuild:Compile</Generator>

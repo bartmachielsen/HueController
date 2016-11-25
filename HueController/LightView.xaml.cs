@@ -89,7 +89,7 @@ namespace HueController
         public async void getLights()
         {
             
-            if (connector != null && connector.room != null && connector.room.username != null)
+            if (connector != null && connector.room != null && connector.room.username != null && connector.room.username != "")
             {
                 var value2 = await connector.RetrieveLights();
                 lights.Clear();
