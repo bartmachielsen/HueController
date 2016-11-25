@@ -111,6 +111,9 @@
     <Compile Include="Models\Animations\RandomAnimation.cs" />
     <Compile Include="Models\Animations\SmoothAnimation.cs" />
     <Compile Include="Models\Room.cs" />
+    <Compile Include="NameChanger.xaml.cs">
+      <DependentUpon>NameChanger.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RoomCreate.xaml.cs">
       <DependentUpon>RoomCreate.xaml</DependentUpon>
     </Compile>
@@ -149,6 +152,10 @@
     <Page Include="LightView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NameChanger.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RoomCreate.xaml">
       <SubType>Designer</SubType>

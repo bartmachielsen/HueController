@@ -110,5 +110,12 @@ namespace HueController
                 return null;
             }
         }
+
+        public async Task<string> changename(Light light)
+        {
+            Uri uriAllLight = new Uri($"http://{room.addres}:{room.port}/api/{room.username}/lights/{light.id}");
+            var content = new HttpStringContent(JSONGenerator.changeName(light), UnicodeEncoding.Utf8, "application/json");
+            return await put(uriAllLight, content);
+        }
     }
 }

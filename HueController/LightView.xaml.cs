@@ -31,6 +31,7 @@ namespace HueController
         private ObservableCollection<Light> lights = new ObservableCollection<Light>();
         private HueConnector connector;
         private bool select = false;
+        private List<string> randomnamen = new List<string>() {"BlameMax", "BlameStefan"};
         public LightView()
         {
             this.lights = new ObservableCollection<Light>();
@@ -163,6 +164,18 @@ namespace HueController
            List<Light> lightsfiltered = new List<Light>(lights);
            lightsfiltered.RemoveAll((Light light) => !light.selected);
             Frame.Navigate(typeof(ColorPickerPage), new object[] { lightsfiltered, connector });
+        }
+
+        private void RandomNames(object sender, RoutedEventArgs e)
+        {
+            Random random = new Random();
+            foreach (var light in lights)
+            {
+                light.name = randomnamen.ElementAt(random.Next(randomnamen.Count));
+                connector.changename(light);
+
+            }
+            getLights();
         }
     }
 

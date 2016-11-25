@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HueController.Models;
 using Newtonsoft.Json;
 
 namespace HueController
@@ -32,6 +33,14 @@ namespace HueController
                 sat = sat,
                 bri = bri,
                 hue = hue
+            });
+        }
+
+        public static string changeName(Light light)
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                name = light.name
             });
         }
     }

@@ -175,9 +175,13 @@ namespace HueController
             }
         }
 
-        private void ChangeName(object sender, RoutedEventArgs e)
+        private async void ChangeName(object sender, RoutedEventArgs e)
         {
-            
+            var changer = new NameChanger(light.name);
+            await changer.ShowAsync();
+            string input = changer.getInput();
+            light.name = input;
+            connector.changename(light);
         }
     }
 }
