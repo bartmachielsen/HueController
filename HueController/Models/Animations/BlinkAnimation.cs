@@ -8,7 +8,7 @@ namespace HueController.Models.Animations
 {
     class BlinkAnimation : IAnimation
     {
-        public List<int[]> Animate(Light light)
+        public List<int[]> Animate()
         {
             List<int[]> colors = new List<int[]>();
 

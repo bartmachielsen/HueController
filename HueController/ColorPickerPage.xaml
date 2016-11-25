@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Name="Maingrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
@@ -68,78 +68,80 @@
                 </ListBox>
             </SplitView.Pane>
         </SplitView>
-        <StackPanel x:Name="Stack" Margin="60,0,0,0">
+        <StackPanel x:Name="Stack" Width="{Binding ElementName=Maingrid, Path=ActualWidth}">
             <TextBlock 
                 Text="{x:Bind light.name}" 
                 HorizontalAlignment="Center" 
-                Margin="0,50,0,0" 
+                Margin="60,50,0,0" 
                 Name="TitleBlock"
                 TextWrapping="Wrap"
             />
             <Slider x:Name="HueSlider" 
                 Value="{x:Bind light.slider[0], Mode=TwoWay}" 
                 Maximum="65535"
-                MinWidth="{Binding ElementName=Stack, Path=ActualWidth}" 
-                Margin="15,50,15,0"
+                Margin="75,50,15,0"
                 ValueChanged="sliderValueChanged"
             />
             <TextBlock
                 HorizontalAlignment="Center" 
                 Text="Hue" 
                 TextWrapping="Wrap"
-                Margin="0,5,0,0"
+                Margin="60,5,0,0"
             />
             <Slider 
                 x:Name="SaturationSlider" 
                 Value="{x:Bind light.slider[2], Mode=TwoWay}"
                 Maximum="254"
-                MinWidth="{Binding ElementName=Stack, Path=ActualWidth}"
-                Margin="15,50,15,0"
+                Margin="75,50,15,0"
                 ValueChanged="sliderValueChanged"
             />
             <TextBlock
                 HorizontalAlignment="Center" 
                 Text="Saturation" 
                 TextWrapping="Wrap"
-                Margin="0,5,0,0"
+                Margin="60,5,0,0"
             />
             <Slider x:Name="ValueSlider"
                 Value="{x:Bind light.slider[1], Mode=TwoWay}" 
                 Maximum="254"
-                MinWidth="{Binding ElementName=Stack, Path=ActualWidth}"
-                Margin="15,50,15,0"
+                Margin="75,50,15,0"
                 ValueChanged="sliderValueChanged"
             />
             <TextBlock 
                 HorizontalAlignment="Center" 
                 Text="Value" 
                 TextWrapping="Wrap"
-                Margin="0,5,0,0"
+                Margin="60,5,0,0"
             />
             <Button x:Name="ApplyButton" 
                 HorizontalAlignment="Center" 
-                Width="100" 
+                Width="90" 
                 Content="Apply" 
-                Margin="0,50,0,0" 
+                Margin="60,50,0,0" 
                 Click="ApplyClick"
             />
-            <Grid Margin="0,50,0,0">
+            <Grid Margin="60,50,0,0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                
-                <ComboBox 
-                    HorizontalAlignment="Center"
-                />
+
+                <ComboBox x:Name="ComboBox" HorizontalAlignment="Center" Width="190" SelectedIndex="0">
+                    <ComboBoxItem Content="Random animation"/>
+                    <ComboBoxItem Content="Smooth animation"/>
+                    <ComboBoxItem Content="Colorswitch animation"/>
+                    <ComboBoxItem Content="Blink animation"/>
+                </ComboBox>
                 <Button
                     HorizontalAlignment="Center"
                     Grid.Column="1"
+                    Width="90"
                     Content="Animate"
+                    Click="AnimationClicked"
                 />
             </Grid>
         </StackPanel>
