@@ -44,8 +44,9 @@
                                 Height="50" Width="50" 
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
+                                Click="Homepage_OnClick"
                              />
-                            <TextBlock Text="Homepage" FontSize="18" VerticalAlignment="Center" />
+                            <TextBlock Text="Rooms" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
 
@@ -65,14 +66,15 @@
                     <ListBoxItem>
                         <StackPanel Orientation="Horizontal">
                             <Button 
-                                x:Name="Refresh" 
+                                x:Name="Back" 
                                 Content="&#xE149;" 
                                 FontFamily="Segoe MDL2 Assets" 
                                 Height="50" Width="50" 
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
+                                Click="Back_OnClick"
                              />
-                            <TextBlock Text="Refresh" FontSize="18" VerticalAlignment="Center" />
+                            <TextBlock Text="Back" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
                 </ListBox>
@@ -81,9 +83,15 @@
                 <GridView ItemsSource="{x:Bind rooms}">
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="data:Room">
-                            <GridView Width="400" Height="100" Tapped="UIElement_OnTapped">
-                                <TextBlock Text="{x:Bind name, Mode=TwoWay}"/>
-                            </GridView>
+                            <Button
+                                Tapped="UIElement_OnTapped"
+                                BorderBrush="Black" 
+                                Background="{x:Bind background}"
+                                BorderThickness="2" 
+                                Height="150" 
+                                Content="{x:Bind name, Mode=TwoWay}"
+                                Width="150" >
+                            </Button>
                         </DataTemplate>
                     </GridView.ItemTemplate>
                 </GridView>

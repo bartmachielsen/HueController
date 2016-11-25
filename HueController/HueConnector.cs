@@ -15,27 +15,24 @@ namespace HueController
 {
     class HueConnector
     {
-        public string ip = "localhost";
-        public int port = 80;
-        public string username;
+       
+        public Room room;
 
-        public HueConnector(string ip, int port, string username = null)
+        public HueConnector(Room room)
         {
-            this.ip = ip;
-            this.port = port;
-            this.username = username;
+            this.room = room;
         }
 
         public async Task<string> RetrieveLights()
         {
-            Uri uriAllLight = new Uri($"http://{ip}:{port}/api/{username}/lights/");
+            Uri uriAllLight = new Uri($"http://{room.addres}:{room.port}/api/{room.username}/lights/");
             return await get(uriAllLight);   
 
         }
 
         public async Task<string> getUsername(string devicetype)
         {
-            Uri uriAllLight = new Uri($"http://{ip}:{port}/api/");
+            Uri uriAllLight = new Uri($"http://{room.addres}:{room.port}/api/");
             IHttpContent content = new HttpStringContent(JSONGenerator.getUsernameByDeviceType(devicetype), UnicodeEncoding.Utf8, "application/json");
             return await post(uriAllLight, content);
         }
@@ -52,7 +49,7 @@ namespace HueController
             {
                 json = JSONGenerator.changeState(light.state.on, light.state.hue, light.state.sat, light.state.bri);
             }
-            Uri uriAllLight = new Uri($"http://{ip}:{port}/api/{username}/lights/{light.id}/state");
+            Uri uriAllLight = new Uri($"http://{room.addres}:{room.port}/api/{room.username}/lights/{light.id}/state");
             var content = new HttpStringContent(json, UnicodeEncoding.Utf8, "application/json");
             return await put(uriAllLight,content);
         }

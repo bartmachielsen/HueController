@@ -30,6 +30,7 @@ namespace HueController
     {
         private ObservableCollection<Light> lights = new ObservableCollection<Light>();
         private HueConnector connector;
+        private List<string> usernames = new List<string>();
         public LightView()
         {
             this.lights = new ObservableCollection<Light>();
@@ -39,10 +40,21 @@ namespace HueController
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            Room room = (Room)e.Parameter;
-            connector = new HueConnector(room.addres, room.port);
+            if (e.Parameter == null && connector != null && connector.room != null)
+            {
+                return;
+            }
+            if (e.Parameter is Room)
+            {
+                Room room = (Room) e.Parameter;
+                System.Diagnostics.Debug.WriteLine(room.username + " USERNAME");
+                connector = new HueConnector(room);
+                if (usernames.Count > room.id)
+                    connector.room.username = usernames.ElementAt(room.id);
+                
+                
+            }
             loadvalues();
-            room.username = connector.username;
         }
 
         public async void loadvalues()
@@ -60,6 +72,7 @@ namespace HueController
 
         private void HomepageClick(object sender, RoutedEventArgs e)
         {
+            Frame.Navigate(typeof(RoomView));
         }
 
         private void SettingsClick(object sender, RoutedEventArgs e)
@@ -85,7 +98,7 @@ namespace HueController
 
         public async void tryGetUsername()
         {
-            if (connector.username == null)
+            if (connector.room.username == null)
             {
                 var usernameresponse = await connector.getUsername("HueController");
                 if (usernameresponse == null)
@@ -93,9 +106,11 @@ namespace HueController
                     connectionDied();
                     return;
                 }
-                connector.username = JSONParser.getUsername(usernameresponse);
+                System.Diagnostics.Debug.WriteLine("GETTING USERNAME " + connector.room.username);
+                connector.room.username = JSONParser.getUsername(usernameresponse);
+                usernames.Insert(connector.room.id, connector.room.username);
             }
-            if (connector.username != null)
+            if (connector.room.username != null)
             {
                 var value2 = await connector.RetrieveLights();
                 if (value2 == null)
@@ -135,8 +150,12 @@ namespace HueController
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
         {
             Light light = (Light)(((Grid)sender).DataContext);
-            System.Diagnostics.Debug.WriteLine(light);
             Frame.Navigate(typeof(ColorPickerPage), new object[] {light, connector});
+        }
+
+        private void Back_OnClick(object sender, RoutedEventArgs e)
+        {
+            Frame.GoBack();
         }
     }
 

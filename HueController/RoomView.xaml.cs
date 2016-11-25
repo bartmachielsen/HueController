@@ -33,7 +33,8 @@ namespace HueController
         public RoomView()
         {
             InitializeComponent();
-            rooms.Add(new Room("Simulator","127.0.0.1", 80));
+            rooms.Add(new Room(0, "Simulator","127.0.0.1", 80));
+            rooms.Add(new Room(1, "Simulator demo", "127.0.0.1", 80));
         }
 
         private void EnlargeButton_OnClick(object sender, RoutedEventArgs e)
@@ -43,8 +44,18 @@ namespace HueController
 
         private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
         {
-            Room room = (Room)((GridView) sender).DataContext;
+            Room room = (Room)((Button) sender).DataContext;
             Frame.Navigate(typeof(LightView), room);
+        }
+
+        private void Homepage_OnClick(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(RoomView));
+        }
+
+        private void Back_OnClick(object sender, RoutedEventArgs e)
+        {
+            Frame.GoBack();
         }
     }
 }
