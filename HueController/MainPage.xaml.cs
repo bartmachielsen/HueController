@@ -28,119 +28,14 @@ namespace HueController
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private ObservableCollection<Light> lights = new ObservableCollection<Light>();
-        private HueConnector connector;
         public MainPage()
         {
-            this.lights = new ObservableCollection<Light>();
-            this.InitializeComponent();
-            loadvalues();   
+            InitializeComponent();
         }
 
-
-        public async void loadvalues()
-        {
-            connector = new HueConnector();
-            tryGetUsername();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void EnlargeButton_OnClick(object sender, RoutedEventArgs e)
         {
             SplitView.IsPaneOpen = !SplitView.IsPaneOpen;
         }
-       
-        private void SelectColor_Click(object sender, RoutedEventArgs e)
-        {
-           
-            //Light light = (Light)((Button)sender).DataContext;
-            //var random = new Random();
-            //var button = ((Button)sender);
-            //light.color = new SolidColorBrush(new Color() {A = (byte)random.Next(255), B = (byte)random.Next(255), G = (byte)random.Next(255), R = (byte)random.Next(255) });
-            //button.Background = new SolidColorBrush(new Color() { A = (byte)random.Next(255), B = (byte)random.Next(255), G = (byte)random.Next(255), R = (byte)random.Next(255) });
-            //connector.changestate(light);
-        }
-
-        private void HomepageClick(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void SettingsClick(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(SettingsPage));
-        }
-        
-        private void ToggleSwitch_OnToggled(object sender, RoutedEventArgs e)
-        {
-            Light light = (Light)((ToggleSwitch)sender).DataContext;
-            if (light != null && light.state != null)
-            {
-                light.state.on = !light.state.on;
-                light.color = null;
-                connector.changestate(light, false);
-            }
-        }
-
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-            tryGetUsername();
-        }
-
-        public async void tryGetUsername()
-        {
-            if (connector.username == null)
-            {
-                var usernameresponse = await connector.getUsername("HueController");
-                if (usernameresponse == null)
-                {
-                    connectionDied();
-                    return;
-                }
-                connector.username = JSONParser.getUsername(usernameresponse);
-            }
-            if (connector.username != null)
-            {
-                var value2 = await connector.RetrieveLights();
-                if (value2 == null)
-                {
-                    connectionDied();
-                    return;
-                }
-                lights.Clear();
-                foreach (var light in JSONParser.getLights(value2))
-                {
-                    lights.Add(light);
-                }
-            }
-            else
-            {
-                await new MessageDialog("Please press HueBox Button").ShowAsync();
-                tryGetUsername();
-            }
-        }
-
-        public async void connectionDied()
-        {
-            await new MessageDialog("No Connection found with HueBox").ShowAsync();
-            tryGetUsername();
-        }
-
-        private void Refresh_OnClick(object sender, RoutedEventArgs e)
-        {
-            tryGetUsername();
-        }
-
-        private void Frame1_Navigated(object sender, NavigationEventArgs e)
-        {
-
-        }
-
-        private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            Light light = (Light)(((Grid)sender).DataContext);
-            System.Diagnostics.Debug.WriteLine(light);
-            Frame.Navigate(typeof(ColorPickerPage), new object[] {light, connector});
-        }
     }
-
-    
 }

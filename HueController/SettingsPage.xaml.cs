@@ -34,7 +34,7 @@ namespace HueController
 
         private void HomepageClick(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MainPage));
+            Frame.Navigate(typeof(LightView));
         }
 
         private void SettingsClick(object sender, RoutedEventArgs e)

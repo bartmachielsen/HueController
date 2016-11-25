@@ -38,14 +38,14 @@ namespace HueController
 
         private void HomepageClick(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MainPage));
+            Frame.Navigate(typeof(LightView));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             light = (Light)((object[])e.Parameter)[0];
             if(light == null)
-                Frame.Navigate(typeof(MainPage));
+                Frame.Navigate(typeof(LightView));
             connector = (HueConnector)((object[])e.Parameter)[1];
             System.Diagnostics.Debug.WriteLine(light.slider[0]);
 
@@ -72,7 +72,7 @@ namespace HueController
                     connector.changestate(light, true);
                 }
             }
-            Frame.Navigate(typeof(MainPage));
+            Frame.Navigate(typeof(LightView));
             
         }
     }
