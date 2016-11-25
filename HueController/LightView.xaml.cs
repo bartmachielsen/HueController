@@ -31,7 +31,6 @@ namespace HueController
         private ObservableCollection<Light> lights = new ObservableCollection<Light>();
         private HueConnector connector;
         private bool select = false;
-        private List<string> randomnamen = new List<string>() {"BlameMax", "BlameStefan"};
         public LightView()
         {
             this.lights = new ObservableCollection<Light>();
@@ -166,12 +165,34 @@ namespace HueController
             Frame.Navigate(typeof(ColorPickerPage), new object[] { lightsfiltered, connector });
         }
 
+        private void RandomColors(object sender, RoutedEventArgs e)
+        {
+            foreach (var light in lights)
+            {
+                var random = new Random();
+                light.state.hue = random.Next(65535);
+                light.state.sat = random.Next(254);
+                light.state.bri = random.Next(154)+100;
+                connector.changestate(light);
+
+            }
+            getLights();
+        }
+
         private void RandomNames(object sender, RoutedEventArgs e)
         {
             Random random = new Random();
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            if (!localSettings.Values.ContainsKey("randomnames"))
+                localSettings.Values["randomnames"] = "";
+            string[] randomnamen = ((String) localSettings.Values["randomnames"]).Split(',');
+            System.Diagnostics.Debug.WriteLine(randomnamen.Length);
+            if (randomnamen.Length == 0)
+                return;
+
             foreach (var light in lights)
             {
-                light.name = randomnamen.ElementAt(random.Next(randomnamen.Count));
+                light.name = randomnamen[random.Next(randomnamen.Length)];
                 connector.changename(light);
 
             }

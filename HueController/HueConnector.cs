@@ -39,7 +39,6 @@ namespace HueController
 
         public async Task<string> changestate(Light light, bool setColor = true)
         {
-            System.Diagnostics.Debug.WriteLine(light.state.on);
             string json;
             if (!setColor)
             {

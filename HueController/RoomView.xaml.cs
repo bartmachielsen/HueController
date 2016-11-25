@@ -190,5 +190,20 @@ namespace HueController
             saveRooms();
             busy = false;
         }
+
+        private async void AddRandomName(object sender, RoutedEventArgs e)
+        {
+            var changer =new NameChanger("");
+            await changer.ShowAsync();
+            string result = changer.getInput();
+
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            if (localSettings.Values.ContainsKey("randomnames"))
+                localSettings.Values["randomnames"] = localSettings.Values["randomnames"] + "," + result;
+            else
+            {
+                localSettings.Values["randomnames"] = result;
+            }
+        }
     }
 }

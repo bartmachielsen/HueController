@@ -45,7 +45,6 @@
                                 Height="50" Width="50" 
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
-                                Click="HomepageClick"
                              />
                             <TextBlock Text="Homepage" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>

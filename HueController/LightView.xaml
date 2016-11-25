@@ -81,21 +81,22 @@
                     <ListBoxItem>
                         <StackPanel Orientation="Horizontal">
                             <Button 
-                                x:Name="Addroom" 
-                                Content="&#59152;" 
+                                x:Name="Refresh" 
+                                Content="&#xE72C;" 
                                 FontFamily="Segoe MDL2 Assets" 
                                 Height="50" Width="50" 
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
-                                Click="Addroom_OnClick"
+                                Click="Refresh_OnClick"
                              />
-                            <TextBlock Text="Add Room" FontSize="18" VerticalAlignment="Center" />
+                            <TextBlock Text="Refresh" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem>
                         <StackPanel Orientation="Horizontal">
                             <Button 
-                                Content="&#xE149;" 
+                               
+                                Content="&#xE8E6;" 
                                 FontFamily="Segoe MDL2 Assets" 
                                 Height="50" Width="50" 
                                 Background="Transparent"
@@ -110,7 +111,7 @@
                             Orientation="Horizontal">
                             <Button 
                                 
-                                Content="&#xE149;" 
+                                Content="&#xE8AC;" 
                                 FontFamily="Segoe MDL2 Assets" 
                                 Height="50" Width="50" 
                                 Background="Transparent"
@@ -123,12 +124,27 @@
                     </ListBoxItem>
                     <ListBoxItem>
                         <StackPanel 
+                            Orientation="Horizontal">
+                            <Button 
+                                
+                                Content="&#xE8E1;" 
+                                FontFamily="Segoe MDL2 Assets" 
+                                Height="50" Width="50" 
+                                Background="Transparent"
+                                Margin="-10,0,10,0"
+                                Click="RandomColors"
+                             />
+                            <TextBlock Text="Randomcolors" FontSize="18" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel 
                             Name="ApllyAll"
                             Orientation="Horizontal"
                             Visibility="Collapsed">
                             <Button 
                                 
-                                Content="&#xE149;" 
+                                Content="&#xE70F;" 
                                 FontFamily="Segoe MDL2 Assets" 
                                 Height="50" Width="50" 
                                 Background="Transparent"
