@@ -125,6 +125,11 @@ namespace HueController
         {
             Frame.GoBack();
         }
+
+        private async void Addroom_OnClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
     

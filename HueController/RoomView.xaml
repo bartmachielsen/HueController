@@ -67,7 +67,7 @@
                         <StackPanel Orientation="Horizontal">
                             <Button 
                                 x:Name="Back" 
-                                Content="&#xE149;" 
+                                Content="&#59179;" 
                                 FontFamily="Segoe MDL2 Assets" 
                                 Height="50" Width="50" 
                                 Background="Transparent"
@@ -81,7 +81,7 @@
                         <StackPanel Orientation="Horizontal">
                             <Button 
                                 x:Name="Addroom" 
-                                Content="&#xE149;" 
+                                Content="&#59152;" 
                                 FontFamily="Segoe MDL2 Assets" 
                                 Height="50" Width="50" 
                                 Background="Transparent"

@@ -41,5 +41,15 @@ namespace HueController
         {
             Frame.Navigate(typeof(SettingsPage));
         }
+
+        private void Back_OnClick(object sender, RoutedEventArgs e)
+        {
+            Frame.GoBack();
+        }
+
+        private async void Addroom_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

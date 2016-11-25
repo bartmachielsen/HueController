@@ -80,6 +80,16 @@ namespace HueController
             TitleBlock.Foreground = new SolidColorBrush(ColorUtil.getColor((int)HueSlider.Value, (int)SaturationSlider.Value, (int)ValueSlider.Value));
         }
 
+        private void Back_OnClick(object sender, RoutedEventArgs e)
+        {
+            Frame.GoBack();
+        }
+
+        private async void Addroom_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
         private async void AnimationClicked(object sender, RoutedEventArgs e)
         {
             RandomAnimation random = new RandomAnimation();
