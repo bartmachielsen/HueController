@@ -104,8 +104,8 @@
                                     BorderBrush="Black" 
                                     BorderThickness="2" 
                                     Padding="20,10,20,10" 
-                                    Height="150" 
-                                    Width="150" 
+                                    Height="145" 
+                                    Width="145" 
                                     Tapped="UIElement_OnTapped"
                                     Background="{x:Bind color, Mode=TwoWay}">
                                 <Grid.RowDefinitions>
@@ -119,8 +119,9 @@
                                 <TextBlock 
                                                 Text="{x:Bind name, Mode=TwoWay}" 
                                                 Grid.Row="0"
-                                                FontSize= "19"
+                                                FontSize= "10"
                                                 FontWeight="ExtraBold"
+                                                TextWrapping="Wrap"
                                                 Grid.Column="0"
                                                 Grid.ColumnSpan="2"
                                                 HorizontalAlignment="Center"

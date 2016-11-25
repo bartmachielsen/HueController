@@ -93,7 +93,11 @@ namespace HueController
             {
                 var value2 = await connector.RetrieveLights();
                 lights.Clear();
-                foreach (var light in JSONParser.getLights(value2))
+                var locallights = JSONParser.getLights(value2);
+                if (locallights == null)
+                    return;
+           
+                foreach (var light in locallights)
                     lights.Add(light);
                 
             }

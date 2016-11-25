@@ -102,8 +102,8 @@
                                 BorderBrush="Black" 
                                 Background="LightBlue"
                                 BorderThickness="2" 
-                                Height="150"
-                                Width="150" >
+                                Height="145"
+                                Width="145" >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
@@ -124,13 +124,14 @@
                                     Grid.Column="0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    Click="changeButton"/>
+                                    Click="ChangeRoom"/>
                                 <Button 
                                     Content="Delete"
                                     Grid.Row="1"
                                     Grid.Column="1"
                                     HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"/>
+                                    VerticalAlignment="Center"
+                                    Click="DeleteRoom"/>
                             </Grid>
                         </DataTemplate>
                     </GridView.ItemTemplate>

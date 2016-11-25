@@ -28,6 +28,7 @@ namespace HueController
                 NameBox.Text = room.name;
                 IPBox.Text = room.addres;
                 PortBox.Text = ""+ room.port;
+                UsernameBox.Text = room.username;
             }
         }
 
@@ -41,14 +42,16 @@ namespace HueController
 
         public string[] getInputted()
         {
-            return new string[] {NameBox.Text, IPBox.Text, PortBox.Text };
+            return new string[] {NameBox.Text, IPBox.Text, PortBox.Text, UsernameBox.Text };
         }
 
         private void TextEvaluator(object sender, TextChangedEventArgs e)
         {
-            var textbox = (TextBox) sender;
-            textbox.Text.Replace(":", "");
-            textbox.Text.Replace(",", "");
+            var box = (TextBox) sender;
+            if (box.Text.Contains(":") || box.Text.Contains(","))
+            {
+                box.Text = box.Text.Replace(":","").Replace(",","");
+            }
         }
     }
 }
