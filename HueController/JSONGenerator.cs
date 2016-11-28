@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using HueController.Models;
@@ -41,6 +43,26 @@ namespace HueController
             return JsonConvert.SerializeObject(new
             {
                 name = light.name
+            });
+        }
+
+        public static string rooms(ObservableCollection<Room> rooms)
+        {
+            var dynamicarray = new dynamic[rooms.Count];
+            for (int i = 0; i < rooms.Count; i++)
+            {
+                Room room = rooms.ElementAt(i);
+                dynamicarray[i] = new
+                {
+                    name = room.name,
+                    address = room.addres,
+                    port = room.port,
+                    username = room.username
+                };
+            }
+            return JsonConvert.SerializeObject(new
+            {
+                rooms = dynamicarray
             });
         }
     }

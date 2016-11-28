@@ -44,19 +44,10 @@ namespace HueController
                 Windows.Storage.ApplicationData.Current.LocalSettings;
             if (localSettings.Values.ContainsKey("rooms"))
             {
-                System.Diagnostics.Debug.WriteLine("Loaded info!");
-                var list = ((string) localSettings.Values["rooms"]).Split(',');
-                foreach (var item in list)
+                rooms = JSONParser.getRooms((string)localSettings.Values["rooms"]);
+                if (rooms == null)
                 {
-                    var splitted = item.Split(':');
-                    string username = null;
-                    if (splitted.Length > 3)
-                    {
-                        username = splitted[3];
-                        System.Diagnostics.Debug.WriteLine("Loaded username " + username);
-                    }
-                    if(splitted.Length > 2)
-                        rooms.Add(new Room(rooms.Count, splitted[0], splitted[1], Int32.Parse(splitted[2]), username));
+                    rooms = new ObservableCollection<Room>();
                 }
                 if (rooms.Count == 0)
                 {
@@ -84,12 +75,8 @@ namespace HueController
             if(localSettings == null) {
                 localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             }
-            List<string> ser = new List<string>();
-            foreach (var room in rooms)
-            {
-                ser.Add($"{room.name}:{room.addres}:{room.port}:{room.username}");
-            }
-            localSettings.Values["rooms"] = string.Join(",", ser);
+
+            localSettings.Values["rooms"] = JSONGenerator.rooms(rooms);
         }
 
         private void EnlargeButton_OnClick(object sender, RoutedEventArgs e)

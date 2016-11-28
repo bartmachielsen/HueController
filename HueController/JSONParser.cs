@@ -64,5 +64,30 @@ namespace HueController
             return null;
         }
 
+        public static ObservableCollection<Room> getRooms(string response)
+        {
+            try
+            {
+                var json = (JArray) ((dynamic)JsonConvert.DeserializeObject(response)).rooms;
+                int index = 0;
+                ObservableCollection<Room> rooms = new ObservableCollection<Room>();
+                foreach (var room in json)
+                {
+                    dynamic dyno = (dynamic) room;
+                    Room rom = new Room(index, null,null,80);
+                    rom.name = dyno.name;
+                    rom.port = dyno.port;
+                    rom.addres = dyno.address;
+                    rom.username = dyno.username;
+                    index++;
+                    rooms.Add(rom);
+                }
+                return rooms;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }
