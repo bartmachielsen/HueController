@@ -143,7 +143,6 @@ namespace HueController
                 {
                     case "Random animation":
                         var randomcolors = random.Animate();
-                        System.Diagnostics.Debug.WriteLine(randomcolors.Count);
                         foreach (int[] c in randomcolors)
                         {
                             foreach (var light in lights)
@@ -152,6 +151,7 @@ namespace HueController
                                 light.state.sat = c[1];
                                 light.state.bri = c[2];
                                 connector.changestate(light);
+                                light.updateAll("color");
                             }
                             await Task.Delay(100);
                         }
