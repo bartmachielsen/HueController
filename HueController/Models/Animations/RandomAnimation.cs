@@ -15,7 +15,7 @@ namespace HueController.Models.Animations
 
             for (int i = 0; i < 100; i++)
             {
-                colors.Add(new int[] {random.Next() * 65553, random.Next() * 254, random.Next() * 254});
+                colors.Add(new int[] {random.Next(65553), random.Next(254), random.Next(254)});
             }
 
             return colors;

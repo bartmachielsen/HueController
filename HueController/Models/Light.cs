@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +10,10 @@ using Windows.UI.Xaml.Media;
 
 namespace HueController.Models
 {
-    public class Light
+    public class Light : INotifyPropertyChanged
     {
         public string name;
+        public event PropertyChangedEventHandler PropertyChanged;
         public int id;
         public bool selected { get; set; } = false;
         public string modelid { get; set; }
@@ -42,15 +44,21 @@ namespace HueController.Models
             }
             set
             {
-               
+                updateAll("color");
             }
         }
 
+        public void updateAll(string value)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(value));
+        }
         public string statetext
         {
             get {return state.on + ""; }
             set { state.on = value == "True"; }
         }
+
+        
     }
 
     public class State

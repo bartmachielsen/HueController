@@ -27,8 +27,12 @@ namespace HueController
     public sealed partial class ColorPickerPage : Page
     {
         private HueConnector connector;
-        private Light light;
         private List<Light> lights;
+
+        public Light light
+        {
+            get { return lights.ElementAt(0); }
+        }
 
         public ColorPickerPage()
         {
@@ -60,7 +64,7 @@ namespace HueController
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if(((object[])e.Parameter)[0] is Light)
-                light = (Light)((object[])e.Parameter)[0];
+                lights = new List<Light>() { (Light)((object[])e.Parameter)[0]};
             if (((object[]) e.Parameter)[0] is List<Light>)
             {
                 lights = (List<Light>) ((object[]) e.Parameter)[0];
@@ -69,10 +73,9 @@ namespace HueController
                     Frame.Navigate(typeof(LightView), connector.room);
                     return;
                 }
-                light = lights.First();
             }
 
-            if (light == null && lights == null)
+            if (lights == null || lights.Count == 0)
                 Frame.Navigate(typeof(LightView), connector.room);
             connector = (HueConnector)((object[])e.Parameter)[1];
         }
@@ -100,16 +103,7 @@ namespace HueController
                 }
                 
             }
-            else if(light != null)
-            {
-                light.state.hue = (int) HueSlider.Value;
-                light.state.sat = (int) SaturationSlider.Value;
-                light.state.bri = (int) ValueSlider.Value;
-                if (connector != null)
-                {
-                    connector.changestate(light, true);
-                }
-            }
+            
             Frame.Navigate(typeof(LightView), connector.room);
         }
 
@@ -131,33 +125,49 @@ namespace HueController
 
         private async void AnimationClicked(object sender, RoutedEventArgs e)
         {
+            executeAnimations();
+            Frame.Navigate(typeof(LightView), connector.room);
+        }
+
+        public async void executeAnimations() { 
+
             RandomAnimation random = new RandomAnimation();
             SmoothAnimation smooth = new SmoothAnimation();
             ColorswitchAnimation colorswitch = new ColorswitchAnimation();
             BlinkAnimation blink = new BlinkAnimation();
             if (this.ComboBox.SelectedItem != null)
             {
-                Frame.Navigate(typeof(LightView), connector.room);
-                string animation = this.ComboBox.SelectedItem.ToString();
+
+                string animation = ((ComboBoxItem)this.ComboBox.SelectedItem).Content +"";
                 switch (animation)
                 {
                     case "Random animation":
                         var randomcolors = random.Animate();
+                        System.Diagnostics.Debug.WriteLine(randomcolors.Count);
                         foreach (int[] c in randomcolors)
                         {
-                            light.state.hue = c[0];
-                            light.state.sat = c[1];
-                            light.state.bri = c[2];
-                            await Task.Delay(1000);
+                            foreach (var light in lights)
+                            {
+                                light.state.hue = c[0];
+                                light.state.sat = c[1];
+                                light.state.bri = c[2];
+                                connector.changestate(light);
+                            }
+                            await Task.Delay(100);
                         }
+                        
                         break;
                     case "Smooth animation":
                         var smoothcolors = smooth.Animate();
                         foreach (int[] c in smoothcolors)
                         {
-                            light.state.hue = c[0];
-                            light.state.sat = c[1];
-                            light.state.bri = c[2];
+                            foreach (var light in lights)
+                            {
+                                light.state.hue = c[0];
+                                light.state.sat = c[1];
+                                light.state.bri = c[2];
+                                
+                            }
                             await Task.Delay(100);
                         }
                         break;
@@ -165,21 +175,30 @@ namespace HueController
                         var colorswitchcolors = colorswitch.Animate();
                         foreach (int[] c in colorswitchcolors)
                         {
-                            light.state.hue = c[0];
-                            light.state.sat = c[1];
-                            light.state.bri = c[2];
-                            await Task.Delay(1000);
+                            foreach (var light in lights)
+                            {
+                                light.state.hue = c[0];
+                                light.state.sat = c[1];
+                                light.state.bri = c[2];
+                            }
+                            await Task.Delay(100);
                         }
                         break;
                     case "Blink animation":
                         var blinkcolors = blink.Animate();
                         foreach (int[] c in blinkcolors)
                         {
-                            light.state.hue = c[0];
-                            light.state.sat = c[1];
-                            light.state.bri = c[2];
-                            await Task.Delay(1000);
+                            foreach (var light in lights)
+                            {
+                                light.state.hue = c[0];
+                                light.state.sat = c[1];
+                                light.state.bri = c[2];
+                            }
+                            await Task.Delay(100);
                         }
+                        break;
+                    default:
+                        System.Diagnostics.Debug.WriteLine(animation);
                         break;
                 }
             }
@@ -187,11 +206,11 @@ namespace HueController
 
         private async void ChangeName(object sender, RoutedEventArgs e)
         {
-            var changer = new NameChanger(light.name);
+            var changer = new NameChanger(lights.ElementAt(0).name);
             await changer.ShowAsync();
             string input = changer.getInput();
-            light.name = input;
-            connector.changename(light);
+            lights.ElementAt(0).name = input;
+            connector.changename(lights.ElementAt(0));
         }
     }
 }

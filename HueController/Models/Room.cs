@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -9,19 +10,14 @@ using Windows.UI.Xaml.Media;
 
 namespace HueController.Models
 {
-    [DataContract]
     public class Room
     {
-        [DataMember]
         public int id { get; set; }
-        [DataMember]
         public string name { get; set; }
-        [DataMember]
         public string addres { get; set; }
-        [DataMember]
         public int port { get; set; }
-        [DataMember]
         public string username { get; set; }
+        public ObservableCollection<Light> lights;
         
 
         public Room(int id, string name, string addres, int port, string username = null)

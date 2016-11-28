@@ -159,7 +159,7 @@
                 </ListBox>
             </SplitView.Pane>
             <SplitView.Content>
-                <GridView ItemsSource="{x:Bind lights}">
+                <GridView ItemsSource="{x:Bind lights, Mode=OneWay}">
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="data:Light" >
                             <Grid 
@@ -171,7 +171,7 @@
                                     Height="145" 
                                     Width="145" 
                                     Tapped="UIElement_OnTapped"
-                                    Background="{x:Bind color, Mode=TwoWay}">
+                                    Background="{x:Bind color, Mode=OneWay}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
@@ -181,7 +181,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock 
-                                                Text="{x:Bind name, Mode=TwoWay}" 
+                                                Text="{x:Bind name, Mode=OneWay}" 
                                                 Grid.Row="0"
                                                 FontSize= "10"
                                                 FontWeight="ExtraBold"
@@ -192,7 +192,7 @@
                                                 VerticalAlignment="Center"
                                                 />
                                 <ToggleSwitch
-                                                IsOn="{x:Bind state.on, Mode=TwoWay}"
+                                                IsOn="{x:Bind state.on, Mode=OneWay}"
                                                 Grid.Row="1"
                                                 Grid.Column="0"
                                                 Grid.ColumnSpan="2"

@@ -108,7 +108,7 @@
                 Value="{x:Bind light.slider[0], Mode=TwoWay}" 
                 Maximum="65535"
                 MinWidth="{Binding ElementName=Stack, Path=ActualWidth}" 
-                Margin="15,50,15,0"
+                Margin="75,50,15,0"
                 Foreground="Transparent"
                 
                 ValueChanged="sliderValueChanged"
@@ -117,6 +117,7 @@
                 HorizontalAlignment="Center" 
                 Text="Hue" 
                 TextWrapping="Wrap"
+
                 Margin="60,5,0,0"
             />
             <Slider 

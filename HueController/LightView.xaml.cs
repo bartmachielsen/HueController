@@ -83,8 +83,8 @@ namespace HueController
             if (light != null && light.state != null)
             {
                 light.state.on = !light.state.on;
-                light.color = null;
                 connector.changestate(light, false);
+                light.updateAll("color");
             }
         }
 
@@ -103,6 +103,7 @@ namespace HueController
            
                 foreach (var light in locallights)
                     lights.Add(light);
+                connector.room.lights = lights;
                 return true;
             }
             return false;
@@ -138,6 +139,7 @@ namespace HueController
             }
             else
             {
+
                 Frame.Navigate(typeof(ColorPickerPage), new object[] {light, connector});
             }
         }
@@ -174,9 +176,9 @@ namespace HueController
                 light.state.sat = random.Next(254);
                 light.state.bri = random.Next(154)+100;
                 connector.changestate(light);
-
+                light.updateAll("color");
             }
-            getLights();
+            
         }
 
         private void RandomNames(object sender, RoutedEventArgs e)
@@ -194,9 +196,10 @@ namespace HueController
             {
                 light.name = randomnamen[random.Next(randomnamen.Length)];
                 connector.changename(light);
+                light.updateAll("name");
+                
 
             }
-            getLights();
         }
     }
 
