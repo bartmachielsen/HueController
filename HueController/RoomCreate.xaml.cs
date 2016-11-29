@@ -50,10 +50,7 @@ namespace HueController
         private void TextEvaluator(object sender, TextChangedEventArgs e)
         {
             var box = (TextBox) sender;
-            if (box.Text.Contains(":") || box.Text.Contains(","))
-            {
-                box.Text = box.Text.Replace(":","").Replace(",","");
-            }
+           
         }
     }
 }

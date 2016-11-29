@@ -21,7 +21,7 @@
                    >
             <SplitView.Pane>
                 <ListBox>
-                    <ListBoxItem>
+                    <ListBoxItem Tapped="EnlargeButton_OnClick">
                         <StackPanel Orientation="Horizontal">
                             <Button 
                                 x:Name="EnlargeButton" 
@@ -29,13 +29,12 @@
                                 FontFamily="Segoe MDL2 Assets" 
                                 Height="50" Width="50" 
                                 Background="Transparent" 
-                                Click="EnlargeButton_OnClick"
                                 Margin="-10,0,10,0"
                                 />
                         </StackPanel>
                     </ListBoxItem>
 
-                    <ListBoxItem>
+                    <ListBoxItem Tapped="Homepage_OnClick">
                         <StackPanel Orientation="Horizontal">
                             <Button 
                                 x:Name="Homepage" 
@@ -44,26 +43,12 @@
                                 Height="50" Width="50" 
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
-                                Click="Homepage_OnClick"
                              />
                             <TextBlock Text="Rooms" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
 
-                    <ListBoxItem>
-                        <StackPanel Orientation="Horizontal">
-                            <Button 
-                                x:Name="Settings" 
-                                Content="&#xE713;" 
-                                FontFamily="Segoe MDL2 Assets" 
-                                Height="50" Width="50" 
-                                Background="Transparent"
-                                Margin="-10,0,10,0"
-                             />
-                            <TextBlock Text="Settings" FontSize="18" VerticalAlignment="Center" />
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem>
+                    <ListBoxItem Tapped="Back_OnClick">
                         <StackPanel Orientation="Horizontal">
                             <Button 
                                 x:Name="Back" 
@@ -72,12 +57,11 @@
                                 Height="50" Width="50" 
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
-                                Click="Back_OnClick"
                              />
                             <TextBlock Text="Back" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem>
+                    <ListBoxItem Tapped="Addroom_OnClick">
                         <StackPanel Orientation="Horizontal">
                             <Button 
                                 x:Name="Addroom" 
@@ -86,12 +70,11 @@
                                 Height="50" Width="50" 
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
-                                Click="Addroom_OnClick"
                              />
                             <TextBlock Text="Add Room" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem>
+                    <ListBoxItem Tapped="AddRandomName">
                         <StackPanel Orientation="Horizontal">
                             <Button 
                                 Content="&#xE716;" 
@@ -99,7 +82,6 @@
                                 Height="50" Width="50" 
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
-                                Click="AddRandomName"
                              />
                             <TextBlock Text="Random Naam" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>

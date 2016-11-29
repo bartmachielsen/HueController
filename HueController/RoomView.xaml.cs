@@ -144,9 +144,12 @@ namespace HueController
             var result = await creater.ShowAsync();
             if (result == ContentDialogResult.Primary)
             {
-                rooms.Add(new Room(rooms.Count, creater.getInputted()[0], creater.getInputted()[1],
-                    Int32.Parse(creater.getInputted()[2]), creater.getInputted()[3]));
-
+                var room = new Room(rooms.Count, creater.getInputted()[0], creater.getInputted()[1],
+                    80, creater.getInputted()[3]);
+                int port = 80;
+                Int32.TryParse(creater.getInputted()[2], out port);
+                room.port = 80;
+                rooms.Add(room);
                 saveRooms();
             }
         }
@@ -163,8 +166,13 @@ namespace HueController
                 if(!(room is SimulatorRoom))
                 {
                     room.addres = creater.getInputted()[1];
-                    room.port = Int32.Parse(creater.getInputted()[2]);
+                    int port = 80;
+
+                    Int32.TryParse(creater.getInputted()[2], out port);
+                    room.port = port;
                     room.username = creater.getInputted()[3];
+                    if (room.username == "" || room.username == " ")
+                        room.username = null;
                 }
                 saveRooms();
             }

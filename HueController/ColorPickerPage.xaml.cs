@@ -83,7 +83,6 @@ namespace HueController
 
         private void SettingsClick(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(SettingsPage));
         }
 
         private void ApplyClick(object sender, RoutedEventArgs e)

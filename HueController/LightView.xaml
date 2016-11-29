@@ -21,7 +21,8 @@
                    >
             <SplitView.Pane>
                 <ListBox>
-                    <ListBoxItem>
+                    <ListBoxItem
+                        Tapped="Button_Click">
                         <StackPanel Orientation="Horizontal">
                             <Button 
                                 x:Name="EnlargeButton" 
@@ -29,13 +30,13 @@
                                 FontFamily="Segoe MDL2 Assets" 
                                 Height="50" Width="50" 
                                 Background="Transparent" 
-                                Click="Button_Click"
                                 Margin="-10,0,10,0"
                                 />
                         </StackPanel>
                     </ListBoxItem>
 
-                    <ListBoxItem>
+                    <ListBoxItem
+                        Tapped="HomepageClick">
                         <StackPanel Orientation="Horizontal">
                             <Button 
                                 x:Name="Homepage" 
@@ -44,27 +45,13 @@
                                 Height="50" Width="50" 
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
-                                Click="HomepageClick"
                              />
                             <TextBlock Text="Rooms" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
 
-                    <ListBoxItem>
-                        <StackPanel Orientation="Horizontal">
-                            <Button 
-                                x:Name="Settings" 
-                                Content="&#xE713;" 
-                                FontFamily="Segoe MDL2 Assets" 
-                                Height="50" Width="50" 
-                                Background="Transparent"
-                                Margin="-10,0,10,0"
-                                Click="SettingsClick"
-                             />
-                            <TextBlock Text="Settings" FontSize="18" VerticalAlignment="Center" />
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem>
+                    <ListBoxItem
+                        Tapped="Back_OnClick">
                         <StackPanel Orientation="Horizontal">
                             <Button 
                                 x:Name="Back" 
@@ -73,12 +60,12 @@
                                 Height="50" Width="50" 
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
-                                Click="Back_OnClick"
                              />
                             <TextBlock Text="Back" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem>
+                    <ListBoxItem
+                        Tapped="Refresh_OnClick">
                         <StackPanel Orientation="Horizontal">
                             <Button 
                                 x:Name="Refresh" 
@@ -87,7 +74,6 @@
                                 Height="50" Width="50" 
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
-                                Click="Refresh_OnClick"
                              />
                             <TextBlock Text="Refresh" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
