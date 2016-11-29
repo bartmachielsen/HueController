@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HueController.Models.Animations
 {
-    class RandomAnimation : IAnimation
+    class RandomAnimation
     {
         public List<int[]> Animate()
         {

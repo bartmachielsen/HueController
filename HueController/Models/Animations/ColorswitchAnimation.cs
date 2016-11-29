@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HueController.Models.Animations
 {
-    class ColorswitchAnimation : IAnimation
+    class ColorswitchAnimation
     {
         public List<int[]> Animate()
         {

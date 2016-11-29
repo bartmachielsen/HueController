@@ -103,5 +103,13 @@ namespace HueController
                 succes = new {username=username }
             });
         }
+
+        public static string usernames(string[] usernames)
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                usernames = usernames
+            });
+        }
     }
 }

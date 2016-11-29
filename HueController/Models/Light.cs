@@ -59,7 +59,16 @@ namespace HueController.Models
             set { state.on = value == "True"; }
         }
 
-        
+        public void setColor(Color color)
+        {
+            double hue, sat, bri;
+            ColorUtil.RGBtoHSV(color.R, color.G, color.B, out hue, out sat, out bri);
+            this.state.hue = (int)hue;
+            this.state.sat = (int) sat;
+            this.state.bri = (int) bri;
+            this.updateAll("color");
+
+        }
     }
 
     public class State

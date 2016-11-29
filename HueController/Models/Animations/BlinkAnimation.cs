@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HueController.Models.Animations
 {
-    class BlinkAnimation : IAnimation
+    class BlinkAnimation
     {
         public List<int[]> Animate()
         {
