@@ -13,13 +13,12 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-
         <SplitView x:Name="SplitView" Grid.Column="0"
-                   DisplayMode="CompactOverlay"
-                   OpenPaneLength="180"
-                   IsPaneOpen="False"
-                   CompactPaneLength="60"
-                   >
+            DisplayMode="CompactOverlay"
+            OpenPaneLength="180"
+            IsPaneOpen="False"
+            CompactPaneLength="60"
+        >
             <SplitView.Pane>
                 <ListBox>
                     <ListBoxItem>
@@ -94,93 +93,105 @@
                     </ListBoxItem>
                 </ListBox>
             </SplitView.Pane>
-            <SplitView.Content>
-                <StackPanel x:Name="Stack" Width="{Binding ElementName=Maingrid, Path=ActualWidth}">
-                    <TextBlock 
-                Text="{x:Bind light.name}" 
-                HorizontalAlignment="Center" 
-                Margin="0,50,0,0" 
-                Name="TitleBlock"
-                
-                TextWrapping="Wrap"
-            />
-                    <Slider x:Name="HueSlider" 
-                Value="{x:Bind light.slider[0], Mode=TwoWay}" 
-                Maximum="65535"
-                MinWidth="{Binding ElementName=Stack, Path=ActualWidth}" 
-                Margin="15,50,75,0"
-                Foreground="Transparent"
-                
-                ValueChanged="sliderValueChanged"
-            />
-                    <TextBlock
-                HorizontalAlignment="Center" 
-                Text="Hue" 
-                TextWrapping="Wrap"
-
-                Margin="0,5,0,0"
-            />
-                    <Slider 
-                x:Name="SaturationSlider" 
-                Value="{x:Bind light.slider[2], Mode=TwoWay}"
-                Maximum="254"
-                Margin="15,50,75,0"
-                ValueChanged="sliderValueChanged"
-            />
-                    <TextBlock
-                HorizontalAlignment="Center" 
-                Text="Saturation" 
-                TextWrapping="Wrap"
-                Margin="60,5,0,0"
-            />
-                    <Slider x:Name="ValueSlider"
-                Value="{x:Bind light.slider[1], Mode=TwoWay}" 
-                Maximum="254"
-                Margin="15,50,75,0"
-                ValueChanged="sliderValueChanged"
-                
-            />
-                    <TextBlock 
-                HorizontalAlignment="Center" 
-                Text="Value" 
-                TextWrapping="Wrap"
-                Margin="0,5,0,0"
-            />
-                    <Button x:Name="ApplyButton" 
-                HorizontalAlignment="Center" 
-                Width="90" 
-                Content="Apply" 
-                Margin="0,50,0,0" 
-                Click="ApplyClick"
-            />
-                    <Grid Margin="0,50,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <ComboBox x:Name="ComboBox" HorizontalAlignment="Center" Width="190" SelectedIndex="0">
-                            <ComboBoxItem Content="Random animation"/>
-                            <ComboBoxItem Content="Smooth animation"/>
-                            <ComboBoxItem Content="Colorswitch animation"/>
-                            <ComboBoxItem Content="Blink animation"/>
-                        </ComboBox>
-                        <Button
-                    HorizontalAlignment="Center"
+            <Grid x:Name="SliderGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock 
+                    Grid.Row="0"
                     Grid.Column="1"
-                    Width="90"
+                    Text="{x:Bind light.name}" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Name="TitleBlock"
+                    TextWrapping="Wrap"
+                />
+                <Slider x:Name="HueSlider" 
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    VerticalAlignment="Bottom"
+                    Value="{x:Bind light.slider[0], Mode=TwoWay}" 
+                    Maximum="65535"
+                    Foreground="Transparent"
+                    ValueChanged="sliderValueChanged"
+                    DragLeave="ApplyClick"
+                />
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    HorizontalAlignment="Center" 
+                    Text="Hue" 
+                    TextWrapping="Wrap"
+                />
+                <Slider x:Name="SaturationSlider" 
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    VerticalAlignment="Bottom"
+                    Value="{x:Bind light.slider[2], Mode=TwoWay}"
+                    Maximum="254"
+                    Foreground="Transparent"
+                    ValueChanged="sliderValueChanged"
+                    DragLeave="ApplyClick"
+                />
+                <TextBlock
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    HorizontalAlignment="Center" 
+                    Text="Saturation" 
+                    TextWrapping="Wrap"
+                />
+                <Slider x:Name="ValueSlider" 
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    VerticalAlignment="Bottom"
+                    Value="{x:Bind light.slider[1], Mode=TwoWay}" 
+                    Maximum="254"
+                    Foreground="Transparent"
+                    ValueChanged="sliderValueChanged"
+                    DragLeave="ApplyClick"
+                />
+                <TextBlock 
+                    Grid.Row="6"
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    Text="Value" 
+                    TextWrapping="Wrap"
+                />
+                <ComboBox x:Name="ComboBox" 
+                          Grid.Row="7"
+                          Grid.Column="1"
+                          HorizontalAlignment="Center" 
+                          VerticalAlignment="Center"
+                          Width="190" 
+                          SelectedIndex="0">
+                    <ComboBoxItem Content="Random animation"/>
+                    <ComboBoxItem Content="Smooth animation"/>
+                    <ComboBoxItem Content="Colorswitch animation"/>
+                    <ComboBoxItem Content="Blink animation"/>
+                </ComboBox>
+                <Button
+                    Grid.Row="8"
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
                     Content="Animate"
                     Click="AnimationClicked"
                 />
-                    </Grid>
-                </StackPanel>
-            </SplitView.Content>
+            </Grid>
         </SplitView>
-        
         <Frame Name="Frame"></Frame>
     </Grid>
 </Page>

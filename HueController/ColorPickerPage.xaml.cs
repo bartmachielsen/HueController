@@ -115,7 +115,7 @@ namespace HueController
 
         private void Back_OnClick(object sender, RoutedEventArgs e)
         {
-            Frame.GoBack();
+            Frame.Navigate(typeof(LightView), connector.room);
         }
 
         private async void Addroom_OnClick(object sender, RoutedEventArgs e)
