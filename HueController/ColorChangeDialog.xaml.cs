@@ -20,6 +20,7 @@ namespace HueController
         public ColorChangeDialog(object e)
         {
             InitializeComponent();
+           
             var collection = new GradientStopCollection();
 
             for (var i = 0; i < 100; i++)
@@ -43,13 +44,8 @@ namespace HueController
             get { return lights.ElementAt(0); }
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-        }
-
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-        }
+       
+        
 
 
         private void SettingsClick(object sender, RoutedEventArgs e)
@@ -72,15 +68,13 @@ namespace HueController
         private void sliderValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             var slider = (Slider) sender;
-            TitleBlock.Foreground =
-                new SolidColorBrush(ColorUtil.getColor((int) HueSlider.Value, (int) SaturationSlider.Value,
-                    (int) ValueSlider.Value));
+           
         }
 
        
         private async void AnimationClicked(object sender, RoutedEventArgs e)
         {
-            executeAnimations();
+            
         }
 
         public async void executeAnimations()
@@ -89,10 +83,10 @@ namespace HueController
                 return;
             switch (ComboBox.SelectedIndex)
             {
-                case 0:
+                case 1:
                     AnimationHandler.ExecuteAnimation(new AllRandomAnimation(connector), lights);
                     break;
-                case 1:
+                case 2:
                     AnimationHandler.ExecuteAnimation(new BlackWhiteAnimation(connector), lights);
                     break;
             }
@@ -105,6 +99,13 @@ namespace HueController
             var input = changer.getInput();
             lights.ElementAt(0).name = input;
             connector.changename(lights.ElementAt(0));
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (ComboBox.SelectedItem != null && ComboBox.SelectedIndex > 0)
+                executeAnimations();
+            this.Hide();
         }
     }
 }

@@ -6,13 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="TITLE"
-    PrimaryButtonText="Button1"
-    SecondaryButtonText="Button2"
-    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+    Title="{x:Bind light.name}">
 
-    <Grid x:Name="SliderGrid">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="3*"/>
@@ -20,24 +16,18 @@
             <RowDefinition Height="3*"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="3*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="10*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock 
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Text="{x:Bind light.name}" 
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Center"
-                    Name="TitleBlock"
-                    TextWrapping="Wrap"
-                />
+       
         <Slider x:Name="HueSlider" 
                     Grid.Row="1"
                     Grid.Column="1"
@@ -96,16 +86,23 @@
                           VerticalAlignment="Center"
                           Width="190" 
                           SelectedIndex="0">
+            <ComboBoxItem Content="No Animation"/>
             <ComboBoxItem Content="Random animation"/>
             <ComboBoxItem Content="Black White animation"/>
         </ComboBox>
+        <TextBlock
+            Grid.Row="9"
+            Height="100"
+            />
+        
         <Button
-                    Grid.Row="8"
-                    Grid.Column="1"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Top"
-                    Content="Animate"
-                    Click="AnimationClicked"
-                />
+            Content="OK"
+            Grid.Row="10"
+            HorizontalAlignment="Center"
+            Grid.Column="1"
+            Width="300"
+            Click="ButtonBase_OnClick"
+            />
+        
     </Grid>
 </ContentDialog>
