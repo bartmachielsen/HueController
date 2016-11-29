@@ -139,6 +139,21 @@
                     </ListBoxItem>
                     <ListBoxItem>
                         <StackPanel 
+                            Orientation="Horizontal">
+                            <Button 
+                                
+                                Content="&#xE8CD;" 
+                                FontFamily="Segoe MDL2 Assets" 
+                                Height="50" Width="50" 
+                                Background="Transparent"
+                                Margin="-10,0,10,0"
+                                Click="KillConnectionBridge"
+                             />
+                            <TextBlock Text="KillBridge" FontSize="18" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel 
                             Name="ApllyAll"
                             Orientation="Horizontal"
                             Visibility="Collapsed">

@@ -18,10 +18,11 @@ namespace HueController
     {
        
         public Room room;
-
+        public HttpClient client;
         public HueConnector(Room room)
         {
             this.room = room;
+            client = new HttpClient();
         }
 
         public virtual async Task<string> RetrieveLights()
@@ -47,12 +48,14 @@ namespace HueController
             }
             else
             {
-                json = JSONGenerator.changeState(light.state.on, light.state.hue, light.state.sat, light.state.bri);
+                json = JSONGenerator.changeState(light.state.on, light.state.hue, light.state.sat, light.state.bri, light.trans);
             }
             Uri uriAllLight = new Uri($"http://{room.addres}:{room.port}/api/{room.username}/lights/{light.id}/state");
             var content = new HttpStringContent(json, UnicodeEncoding.Utf8, "application/json");
             return await put(uriAllLight,content);
         }
+
+        
 
         public virtual async Task<string> put(Uri link, IHttpContent content)
         {
@@ -60,15 +63,15 @@ namespace HueController
             cts.CancelAfter(1000);
             try
             {
-                HttpClient client = new HttpClient();
                 var response = await client.PutAsync(link, content);
                 if (response == null || !response.IsSuccessStatusCode)
                     return null;
                 string jsonResponse = await response.Content.ReadAsStringAsync();
                 return jsonResponse;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
+                System.Diagnostics.Debug.WriteLine(exception);
                 return null;
             }
         }
@@ -78,7 +81,6 @@ namespace HueController
             cts.CancelAfter(1000);
             try
             {
-                HttpClient client = new HttpClient();
                 var response = await client.GetAsync(link);
                 if (response == null || !response.IsSuccessStatusCode)
                     return string.Empty;
@@ -98,7 +100,6 @@ namespace HueController
             cts.CancelAfter(1000);
             try
             {
-                HttpClient client = new HttpClient();
                 var response = await client.PostAsync(link, content);
                 if (response == null || !response.IsSuccessStatusCode)
                     return null;

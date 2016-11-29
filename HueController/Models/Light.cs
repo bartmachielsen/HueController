@@ -19,6 +19,7 @@ namespace HueController.Models
         public string modelid { get; set; }
         public State state { get; set; }
         public string type { get; set; }
+        public int trans { get; set; }= 0;
         public string uniqueid { get; set; }
         
 

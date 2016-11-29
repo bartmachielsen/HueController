@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.Web.Http;
 using HueController.Models;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -198,6 +199,45 @@ namespace HueController
                 light.updateAll("name");
                 
 
+            }
+        }
+
+        private void KillConnectionBridge(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(RoomView));
+            killConnection();
+        }
+
+        public async void killConnection()
+        {
+            List<Task> tasks = new List<Task>();
+            foreach (var light in lights)
+            {
+                tasks.Add(BruteForceLight(light));
+            }
+            foreach (var task in tasks)
+            {
+                if (task.IsCompleted)
+                {
+                    new MessageDialog("BruteForcing finished (timed out)").ShowAsync();
+                    return;
+                }
+                    
+            }
+        }
+
+        public async Task<string> BruteForceLight(Light light)
+        {
+            HueConnector connector = new HueConnector(this.connector.room);
+            while (true)
+            {
+                
+                light.state.on = !light.state.on;
+                string response = await connector.changestate(light, false);
+                if (response == null)
+                {
+                    return "";
+                }
             }
         }
     }
