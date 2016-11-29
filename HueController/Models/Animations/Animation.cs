@@ -52,7 +52,6 @@ namespace HueController.Models.Animations
         public BlackWhiteAnimation(HueConnector connector) : base(connector)
         {
             delayTime = 500;
-            length = 10000;
         }
 
         public override async void ExecuteOne(int index,Light light)

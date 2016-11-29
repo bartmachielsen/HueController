@@ -60,6 +60,7 @@ namespace HueController
                     light2.state.hue = (int) HueSlider.Value;
                     light2.state.sat = (int) SaturationSlider.Value;
                     light2.state.bri = (int) ValueSlider.Value;
+                    light2.updateAll("color");
                     if (connector != null)
                         connector.changestate(light2, true);
                 }
