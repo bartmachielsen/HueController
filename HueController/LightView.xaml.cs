@@ -29,7 +29,8 @@ namespace HueController
     /// </summary>
     public sealed partial class LightView : Page
     {
-        private ObservableCollection<Light> lights = new ObservableCollection<Light>();
+        private ObservableCollection<Light> lights;
+        private Room room;
         private HueConnector connector;
         private bool select = false;
         public LightView()
@@ -48,13 +49,14 @@ namespace HueController
             }
             if (e.Parameter is Room)
             {
-                Room room = (Room) e.Parameter;
+                room = (Room) e.Parameter;
                 connector = room.getConnector();
 
             }
+            lights = room.lights;
             if (! await getLights())
             {
-                Frame.Navigate(typeof(RoomView), connector.room);
+                Frame.Navigate(typeof(RoomView), $"{((Room)e.Parameter).name} is not reachable!");
             }
         }
 
@@ -69,7 +71,7 @@ namespace HueController
 
         private void HomepageClick(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(RoomView));
+            Frame.Navigate(typeof(RoomView), room);
         }
 
         private void SettingsClick(object sender, RoutedEventArgs e)
@@ -91,18 +93,29 @@ namespace HueController
 
         public async Task<bool> getLights()
         {
-            
             if (connector != null && connector.room != null && connector.room.username != null && connector.room.username != "")
             {
                 var value2 = await connector.RetrieveLights();
-                lights.Clear();
+                lights = room.lights;
                 var locallights = JSONParser.getLights(value2);
                 if (locallights == null)
                     return false;
-           
-                foreach (var light in locallights)
-                    lights.Add(light);
-                connector.room.lights = lights;
+
+                foreach (var locallight in locallights)
+                {
+                    bool merged = false;
+                    foreach (var light in lights)
+                    {
+                        if (light.merge(locallight))
+                        {
+                            merged = true;
+                            break;
+                        }
+                    }
+                    if (!merged)
+                        lights.Add(locallight);
+                }
+                room.lights = lights;
                 return true;
             }
             return false;
@@ -217,7 +230,6 @@ namespace HueController
 
         private void KillConnectionBridge(object sender, RoutedEventArgs e)
         {
-            //Frame.Navigate(typeof(RoomView));
             killConnection();
         }
 
@@ -244,13 +256,12 @@ namespace HueController
         {
             Random random = new Random();
             string[] randomnames = getRandomNames();
-            HueConnector connector = new HueConnector(this.connector.room);
+            HueConnector connector = this.connector.room.getConnector();
             while (true)
             {
                 
                 light.state.on = !light.state.on;
                 light.updateAll("state");
-                light.updateAll("color");
 
                 if (random.Next(10) >= 5)
                 {
@@ -261,6 +272,7 @@ namespace HueController
                 light.state.hue = random.Next(65535);
                 light.state.sat = random.Next(254);
                 light.state.bri = random.Next(154) + 100;
+                light.updateAll("color");
                 string response = await connector.changestate(light, false);
                 if (response == null)
                 {

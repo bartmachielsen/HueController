@@ -9,7 +9,7 @@ namespace HueController.Models.Animations
 {
     class AnimationHandler
     {
-        public static async void ExecuteAnimation(Animation animation, ObservableCollection<Light> lights )
+        public static async void ExecuteAnimation(Animation animation, List<Light> lights )
         {
             for (int i = 0; i < animation.length; i++)
             {
@@ -18,6 +18,7 @@ namespace HueController.Models.Animations
                     animation.ExecuteOne(i, light);
                 }
                 animation.RoundFinished();
+                await Task.Delay(animation.delayTime);
             }
         }
     }

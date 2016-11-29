@@ -17,7 +17,7 @@ namespace HueController.Models
         public string addres { get; set; }
         public int port { get; set; }
         public string username { get; set; }
-        public ObservableCollection<Light> lights;
+        public ObservableCollection<Light> lights = new ObservableCollection<Light>();
         
 
         public Room(int id, string name, string addres, int port, string username = null)
@@ -34,7 +34,6 @@ namespace HueController.Models
                 this.username = username;
             }
         }
-
         public virtual HueConnector getConnector()
         {
             return new HueConnector(this);
@@ -43,15 +42,13 @@ namespace HueController.Models
 
     public class SimulatorRoom : Room
     {
-        private Simulator simulator;
         public SimulatorRoom(int id) : base(id, "Simulator", "Application", 69, "[no-username-needed]")
         {
-            simulator = new Simulator(this);
         }
 
         public override HueConnector getConnector()
         {
-            return simulator;
+            return new Simulator(this);
         }
     }
 }

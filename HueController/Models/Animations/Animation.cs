@@ -10,6 +10,7 @@ namespace HueController.Models.Animations
     public abstract class Animation
     {
         public int length { get; set; } = 100;
+        public int delayTime { get; set; } = 100;
         public HueConnector connector;
 
         public Animation(HueConnector connector)

@@ -156,7 +156,6 @@ namespace HueController
 
         public override async Task<string> changename(Light light)
         {
-
             return "";
         }
         public override async Task<string> RetrieveLights()

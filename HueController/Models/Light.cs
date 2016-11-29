@@ -67,7 +67,41 @@ namespace HueController.Models
             this.state.sat = (int) sat;
             this.state.bri = (int) bri;
             this.updateAll("color");
+        }
 
+        public bool merge(Light light)
+        {
+            bool colorchanged = false;
+            if (this.id == light.id)
+            {
+                if (this.state.hue != light.state.hue)
+                {
+                    colorchanged = true;
+                    this.state.hue = light.state.hue;
+                }
+
+                if (this.state.bri != light.state.bri)
+                {
+                    colorchanged = true;
+                    this.state.bri = light.state.bri;
+                }
+
+
+                if (this.state.sat != light.state.sat)
+                {
+                    colorchanged = true;
+                    this.state.sat = light.state.sat;
+                }
+                if(colorchanged)
+                    this.updateAll("color");
+                if (this.name != light.name)
+                {
+                    this.name = light.name;
+                    this.updateAll("name");
+                }
+                return true;
+            }
+            return false;
         }
     }
 

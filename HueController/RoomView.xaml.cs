@@ -67,8 +67,20 @@ namespace HueController
             base.OnNavigatedTo(e);
             if (e.Parameter != null && e.Parameter is Room)
             {
-                await new MessageDialog($"{((Room)e.Parameter).name} is not reachable!", "Connection error").ShowAsync();
+                var cRoom = (Room) e.Parameter;
+                foreach (var room in rooms)
+                {
+                    if (room.id == cRoom.id && room.name == cRoom.name && room.addres == cRoom.addres)
+                    {
+                        room.lights = cRoom.lights;
+                    }
+
+                }
+            }else if (e.Parameter is String)
+            {
+                await new MessageDialog(e.Parameter +"", "Error").ShowAsync();
             }
+            
         }
 
         public void saveRooms(Windows.Storage.ApplicationDataContainer localSettings = null)
@@ -171,7 +183,7 @@ namespace HueController
                     Int32.TryParse(creater.getInputted()[2], out port);
                     room.port = port;
                     room.username = creater.getInputted()[3];
-                    if (room.username == "" || room.username == " ")
+                    if(room.username == "" || room.username == " ")
                         room.username = null;
                 }
                 saveRooms();

@@ -178,9 +178,7 @@
                           Width="190" 
                           SelectedIndex="0">
                     <ComboBoxItem Content="Random animation"/>
-                    <ComboBoxItem Content="Smooth animation"/>
-                    <ComboBoxItem Content="Colorswitch animation"/>
-                    <ComboBoxItem Content="Blink animation"/>
+                    <ComboBoxItem Content="Black White animation"/>
                 </ComboBox>
                 <Button
                     Grid.Row="8"
