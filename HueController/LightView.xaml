@@ -78,7 +78,8 @@
                             <TextBlock Text="Refresh" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem>
+                    <ListBoxItem
+                        Tapped="SelectMore">
                         <StackPanel Orientation="Horizontal">
                             <Button 
                                
@@ -87,12 +88,12 @@
                                 Height="50" Width="50" 
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
-                                Click="SelectMore"
                              />
                             <TextBlock Text="Select" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem>
+                    <ListBoxItem
+                        Tapped="RandomNames">
                         <StackPanel 
                             Orientation="Horizontal">
                             <Button 
@@ -102,12 +103,12 @@
                                 Height="50" Width="50" 
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
-                                Click="RandomNames"
                              />
-                            <TextBlock Text="RandomNamen" FontSize="18" VerticalAlignment="Center" />
+                            <TextBlock Text="Random Namen" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem>
+                    <ListBoxItem
+                        Tapped="RandomColors">
                         <StackPanel 
                             Orientation="Horizontal">
                             <Button 
@@ -116,12 +117,12 @@
                                 Height="50" Width="50" 
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
-                                Click="RandomColors"
                              />
-                            <TextBlock Text="Randomcolors" FontSize="18" VerticalAlignment="Center" />
+                            <TextBlock Text="Random colors" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem>
+                    <ListBoxItem
+                        Tapped="KillConnectionBridge">
                         <StackPanel 
                             Orientation="Horizontal">
                             <Button 
@@ -131,12 +132,12 @@
                                 Height="50" Width="50" 
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
-                                Click="KillConnectionBridge"
                              />
                             <TextBlock Text="KillBridge" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem>
+                    <ListBoxItem
+                        Tapped="Changeevery">
                         <StackPanel 
                             Orientation="Horizontal">
                             <Button 
@@ -151,7 +152,8 @@
                             <TextBlock Text="Change All" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
-                    <ListBoxItem>
+                    <ListBoxItem
+                        Tapped="ApllyAll_OnClick">
                         <StackPanel 
                             Name="ApllyAll"
                             Orientation="Horizontal"
@@ -163,8 +165,6 @@
                                 Height="50" Width="50" 
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
-                                
-                                Click="ApllyAll_OnClick"
                              />
                             <TextBlock Text="Change Selected" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
@@ -212,6 +212,7 @@
                                 Grid.ColumnSpan="2"
                                 HorizontalAlignment="Left"
                                 Toggled="ToggleSwitch_OnToggled"
+                                    
                                 />
                             </Grid>
                         </DataTemplate>

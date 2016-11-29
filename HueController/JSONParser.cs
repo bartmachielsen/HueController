@@ -22,7 +22,7 @@ namespace HueController
             }
             JObject obj = (JObject) json;
             ObservableCollection<Light> lights = new ObservableCollection<Light>();
-            int index = 1;
+            
             if (json == null)
             {
                 return null;
@@ -31,7 +31,8 @@ namespace HueController
             {
                 dynamic dyno = child.First;
                 Light light = new Light();
-                light.id = index;
+                light.id = Int32.Parse(child.Path);
+
                 light.name = dyno.name;
                 light.modelid = dyno.modelid;
                 State state = new State();
@@ -49,7 +50,6 @@ namespace HueController
                 state.on = dyno.state.on;
                 state.reachable = dyno.state.reachable;
                 lights.Add(light);
-                index++;
             }
             return lights;
         }
