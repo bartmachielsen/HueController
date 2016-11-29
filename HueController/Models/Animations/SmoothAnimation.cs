@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HueController.Models.Animations
 {
-    class SmoothAnimation : IAnimation
+    class SmoothAnimation
     {
         public List<int[]> Animate()
         {

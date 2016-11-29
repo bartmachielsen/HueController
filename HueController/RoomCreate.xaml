@@ -30,7 +30,7 @@
         <TextBlock Text="Username"  Grid.Column="0" Grid.Row="3" />
         <TextBox Grid.Column="1" Grid.Row="0" Name="NameBox" TextChanged="TextEvaluator"/>
         <TextBox Grid.Column="1" Grid.Row="1" Name="IPBox" TextChanged="TextEvaluator"/>
-        <TextBox Grid.Column="1" Grid.Row="2" Name="PortBox" TextChanged="TextEvaluator"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Name="PortBox" TextChanged="TextEvaluator" AutomationProperties.ItemType=""/>
         <TextBox Grid.Column="1" Grid.Row="3" Name="UsernameBox" TextChanged="TextEvaluator"/>
     </Grid>
 </ContentDialog>

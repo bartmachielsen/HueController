@@ -22,13 +22,14 @@ namespace HueController
             });
         }
 
-        public static string changeState(bool stateOn, int hue = -1, int sat = -1, int bri = -1)
+        public static string changeState(bool stateOn, int hue = -1, int sat = -1, int bri = -1, int trans = 0)
         {
             if (!stateOn || hue == -1 || sat == -1 || bri == -1)
             {
                 return JsonConvert.SerializeObject(new
                 {
-                    on = stateOn
+                    on = stateOn,
+                    transitiontime = trans
                 });
             }
             return JsonConvert.SerializeObject(new
@@ -36,7 +37,8 @@ namespace HueController
                 on = stateOn,
                 sat = sat,
                 bri = bri,
-                hue = hue
+                hue = hue,
+                transitiontime = trans
             });
         }
 
@@ -99,6 +101,14 @@ namespace HueController
             return JsonConvert.SerializeObject(new
             {
                 succes = new {username=username }
+            });
+        }
+
+        public static string usernames(string[] usernames)
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                usernames = usernames
             });
         }
     }

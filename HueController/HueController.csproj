@@ -105,8 +105,8 @@
     <Compile Include="LightView.xaml.cs">
       <DependentUpon>LightView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Animations\Animation.cs" />
     <Compile Include="Models\Animations\BlinkAnimation.cs" />
-    <Compile Include="Models\IAnimation.cs" />
     <Compile Include="Models\Animations\ColorswitchAnimation.cs" />
     <Compile Include="Models\Animations\RandomAnimation.cs" />
     <Compile Include="Models\Animations\SmoothAnimation.cs" />
@@ -121,9 +121,6 @@
       <DependentUpon>RoomView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Light.cs" />
-    <Compile Include="SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -164,10 +161,6 @@
     <Page Include="RoomView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SettingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
