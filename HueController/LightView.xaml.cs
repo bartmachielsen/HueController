@@ -133,7 +133,7 @@ namespace HueController
 
         }
 
-        private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
+        private async void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
         {
             
             Light light = (Light)(((Grid)sender).DataContext);
@@ -142,17 +142,20 @@ namespace HueController
                 light.selected = !light.selected;
                 if (light.selected)
                 {
-                    ((Grid) sender).Background = new SolidColorBrush(Colors.Transparent);
+                    ((Grid)sender).BorderBrush = new SolidColorBrush(Colors.DarkBlue);
+                    ((Grid)sender).BorderThickness = new Thickness(5,5,5,5);
                 }
                 else
                 {
-                    ((Grid) sender).Background = light.color;
+                    ((Grid)sender).BorderThickness = new Thickness(2, 2, 2, 2);
+                    ((Grid) sender).BorderBrush = new SolidColorBrush(Colors.Black);
                 }
             }
             else
             {
 
-                Frame.Navigate(typeof(ColorPickerPage), new object[] {light, connector});
+                var picker = new ColorChangeDialog(new object[] { light, connector });
+                await picker.ShowAsync();
             }
         }
 
@@ -172,11 +175,12 @@ namespace HueController
             }
         }
 
-        private void ApllyAll_OnClick(object sender, RoutedEventArgs e)
+        private async void ApllyAll_OnClick(object sender, RoutedEventArgs e)
         {
            List<Light> lightsfiltered = new List<Light>(lights);
            lightsfiltered.RemoveAll((Light light) => !light.selected);
-            Frame.Navigate(typeof(ColorPickerPage), new object[] { lightsfiltered, connector });
+           var picker = new ColorChangeDialog(new object[] { lightsfiltered, connector });
+           await picker.ShowAsync();
         }
 
         private void RandomColors(object sender, RoutedEventArgs e)
@@ -279,6 +283,12 @@ namespace HueController
                     return "";
                 }
             }
+        }
+
+        private async void Changeevery(object sender, RoutedEventArgs e)
+        {
+            var picker = new ColorChangeDialog(new object[] { new List<Light>(lights), connector });
+            await picker.ShowAsync();
         }
     }
 

@@ -76,7 +76,7 @@ namespace HueController
                     }
 
                 }
-            }else if (e.Parameter is String)
+            }else if (e.Parameter is String && e.Parameter != "" && e.Parameter != null)
             {
                 await new MessageDialog(e.Parameter +"", "Error").ShowAsync();
             }

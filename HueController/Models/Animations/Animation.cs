@@ -51,20 +51,26 @@ namespace HueController.Models.Animations
         private bool even = false;
         public BlackWhiteAnimation(HueConnector connector) : base(connector)
         {
+            delayTime = 500;
+            length = 10000;
         }
 
         public override async void ExecuteOne(int index,Light light)
         {
             if (light.id%2 == 0 && even || light.id%2 != 0 && !even)
             {
-                light.state.on = false;
+                light.state.hue = 0;
+                light.state.sat = 0;
+                light.state.bri = 0;
             }
             else
             {
-
-                light.state.on = true;
+                light.state.hue = 0;
+                light.state.sat = 0;
+                light.state.bri = 254;
             }
-            await connector.changestate(light, false);
+            light.updateAll("color");
+            await connector.changestate(light, true);
         }
 
         public override void RoundFinished()

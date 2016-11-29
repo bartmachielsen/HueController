@@ -138,6 +138,21 @@
                     </ListBoxItem>
                     <ListBoxItem>
                         <StackPanel 
+                            Orientation="Horizontal">
+                            <Button 
+                                
+                                Content="&#xE70F;" 
+                                FontFamily="Segoe MDL2 Assets" 
+                                Height="50" Width="50" 
+                                Background="Transparent"
+                                Margin="-10,0,10,0"
+                                Click="Changeevery"
+                             />
+                            <TextBlock Text="Change All" FontSize="18" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel 
                             Name="ApllyAll"
                             Orientation="Horizontal"
                             Visibility="Collapsed">
@@ -151,7 +166,7 @@
                                 
                                 Click="ApllyAll_OnClick"
                              />
-                            <TextBlock Text="ChangeAll" FontSize="18" VerticalAlignment="Center" />
+                            <TextBlock Text="Change Selected" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
                     

@@ -64,6 +64,8 @@ namespace HueController.Models
             double hue, sat, bri;
             ColorUtil.RGBtoHSV(color.R, color.G, color.B, out hue, out sat, out bri);
             this.state.hue = (int)hue;
+            if (this.state.hue < 0)
+                this.state.hue = 0;
             this.state.sat = (int) sat;
             this.state.bri = (int) bri;
             this.updateAll("color");
