@@ -27,8 +27,10 @@ namespace HueController
             {
                 NameBox.Text = room.name;
                 IPBox.Text = room.addres;
-                PortBox.Text = ""+ room.port;
-                UsernameBox.Text = room.username;
+                PortBox.Text = "" + room.port;
+                UsernameBox.Text = ""+room.username;
+                
+                PrimaryButtonText = "Save Changes";
             }
         }
 

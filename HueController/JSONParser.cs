@@ -48,7 +48,6 @@ namespace HueController
                     state.hue = dyno.state.hue;
                 state.on = dyno.state.on;
                 state.reachable = dyno.state.reachable;
-                state.effect = dyno.state.effect;
                 lights.Add(light);
                 index++;
             }

@@ -13,6 +13,7 @@ using UnicodeEncoding = Windows.Storage.Streams.UnicodeEncoding;
 
 namespace HueController
 {
+ 
    public class HueConnector
     {
        
@@ -23,21 +24,21 @@ namespace HueController
             this.room = room;
         }
 
-        public async Task<string> RetrieveLights()
+        public virtual async Task<string> RetrieveLights()
         {
             Uri uriAllLight = new Uri($"http://{room.addres}:{room.port}/api/{room.username}/lights/");
             return await get(uriAllLight);   
 
         }
 
-        public async Task<string> getUsername(string devicetype)
+        public virtual async Task<string> getUsername(string devicetype)
         {
             Uri uriAllLight = new Uri($"http://{room.addres}:{room.port}/api/");
             IHttpContent content = new HttpStringContent(JSONGenerator.getUsernameByDeviceType(devicetype), UnicodeEncoding.Utf8, "application/json");
             return await post(uriAllLight, content);
         }
 
-        public async Task<string> changestate(Light light, bool setColor = true)
+        public virtual async Task<string> changestate(Light light, bool setColor = true)
         {
             string json;
             if (!setColor)
@@ -53,7 +54,7 @@ namespace HueController
             return await put(uriAllLight,content);
         }
 
-        public async Task<string> put(Uri link, IHttpContent content)
+        public virtual async Task<string> put(Uri link, IHttpContent content)
         {
             var cts = new CancellationTokenSource();
             cts.CancelAfter(1000);
@@ -71,7 +72,7 @@ namespace HueController
                 return null;
             }
         }
-        public async Task<string> get(Uri link)
+        public virtual async Task<string> get(Uri link)
         {
             var cts = new CancellationTokenSource();
             cts.CancelAfter(1000);
@@ -91,7 +92,7 @@ namespace HueController
             }
 
         }
-        public async Task<string> post(Uri link, IHttpContent content)
+        public virtual async Task<string> post(Uri link, IHttpContent content)
         {
             var cts = new CancellationTokenSource();
             cts.CancelAfter(1000);
@@ -110,11 +111,69 @@ namespace HueController
             }
         }
 
-        public async Task<string> changename(Light light)
+        public virtual async Task<string> changename(Light light)
         {
             Uri uriAllLight = new Uri($"http://{room.addres}:{room.port}/api/{room.username}/lights/{light.id}");
             var content = new HttpStringContent(JSONGenerator.changeName(light), UnicodeEncoding.Utf8, "application/json");
             return await put(uriAllLight, content);
+        }
+    }
+
+
+    public class Simulator : HueConnector
+    {
+        List<Light> lights = new List<Light>();
+        public Simulator(Room room) : base(room)
+        {
+            if (room.lights != null && room.lights.Count > 1)
+            {
+                lights = new List<Light>(room.lights);
+                return;
+            }
+            lights = new List<Light>();
+            for (int i = 0; i < 4; i++)
+            {
+                lights.Add(new Light()
+                {
+                    id = i,
+                    name = $"Light [{i}]",
+                    modelid = "FakeLight",
+                    state = new State()
+                    {
+                      ct  = 0,
+                      sat = 0,
+                      effect = String.Empty,
+                      bri = 255,
+                      hue = 50,
+                      on = false,
+                      reachable = true
+                    }
+                });
+            }
+
+        }
+
+        public override async Task<string> changename(Light light)
+        {
+
+            return "";
+        }
+        public override async Task<string> RetrieveLights()
+        {
+            return JSONGenerator.generateUglyLights(lights);
+        }
+
+        public override async Task<string> getUsername(string devicetype)
+        {
+
+            return JSONGenerator.usernamesuccesResponse("[NO-USERNAME-NEEDED]");
+        }
+
+        public override async Task<string> changestate(Light light, bool setColor = true)
+        {
+            lights.RemoveAll(light1 => light.id == light1.id);
+            lights.Add(light);
+            return "state changed";
         }
     }
 }

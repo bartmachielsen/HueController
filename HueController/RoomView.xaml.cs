@@ -36,6 +36,7 @@ namespace HueController
         {
             InitializeComponent();
             loadFromSave();
+            rooms.Add(new SimulatorRoom(rooms.Count));
         }
 
         public void loadFromSave()
@@ -115,7 +116,6 @@ namespace HueController
             HueConnector connector = new HueConnector(room);
             if (room.username == null)
             {
-                System.Diagnostics.Debug.WriteLine("Getting username");
                 var usernameresponse = await connector.getUsername("HueController");
                 if (usernameresponse == null)
                 {
@@ -160,10 +160,12 @@ namespace HueController
             if (result == ContentDialogResult.Primary)
             {
                 room.name = creater.getInputted()[0];
-                room.addres = creater.getInputted()[1];
-                room.port = Int32.Parse(creater.getInputted()[2]);
-                room.username = creater.getInputted()[3];
-
+                if(!(room is SimulatorRoom))
+                {
+                    room.addres = creater.getInputted()[1];
+                    room.port = Int32.Parse(creater.getInputted()[2]);
+                    room.username = creater.getInputted()[3];
+                }
                 saveRooms();
             }
             busy = false;

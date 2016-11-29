@@ -34,5 +34,24 @@ namespace HueController.Models
                 this.username = username;
             }
         }
+
+        public virtual HueConnector getConnector()
+        {
+            return new HueConnector(this);
+        }
+    }
+
+    public class SimulatorRoom : Room
+    {
+        private Simulator simulator;
+        public SimulatorRoom(int id) : base(id, "Simulator", "Application", 69, "[no-username-needed]")
+        {
+            simulator = new Simulator(this);
+        }
+
+        public override HueConnector getConnector()
+        {
+            return simulator;
+        }
     }
 }

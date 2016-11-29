@@ -48,9 +48,8 @@ namespace HueController
             if (e.Parameter is Room)
             {
                 Room room = (Room) e.Parameter;
-                connector = new HueConnector(room);
-                
-                
+                connector = room.getConnector();
+
             }
             if (! await getLights())
             {
@@ -169,9 +168,9 @@ namespace HueController
 
         private void RandomColors(object sender, RoutedEventArgs e)
         {
+            var random = new Random();
             foreach (var light in lights)
             {
-                var random = new Random();
                 light.state.hue = random.Next(65535);
                 light.state.sat = random.Next(254);
                 light.state.bri = random.Next(154)+100;

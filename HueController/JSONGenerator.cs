@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using HueController.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace HueController
 {
@@ -48,6 +50,9 @@ namespace HueController
 
         public static string rooms(ObservableCollection<Room> rooms)
         {
+            var only = new List<Room>(rooms);
+            only.RemoveAll(room => room is SimulatorRoom);
+            rooms = new ObservableCollection<Room>(only);
             var dynamicarray = new dynamic[rooms.Count];
             for (int i = 0; i < rooms.Count; i++)
             {
@@ -63,6 +68,37 @@ namespace HueController
             return JsonConvert.SerializeObject(new
             {
                 rooms = dynamicarray
+            });
+        }
+
+        public static string generateUglyLights(List<Light> lights)
+        {
+            JObject obj = new JObject();
+            foreach (Light light in lights)
+            {
+                dynamic jobj = new JObject();
+                obj[light.id + ""] = jobj;
+                jobj.name = light.name;
+                jobj.modelid = light.modelid;
+
+                dynamic state = new JObject();
+                state.ct = light.state.ct;
+                state.sat = light.state.sat;
+                state.effect = light.state.effect;
+                state.bri = light.state.bri;
+                state.hue = light.state.hue;
+                state.on = light.state.on;
+                state.reachable = light.state.reachable;
+                jobj.state = state;
+            }
+            return JsonConvert.SerializeObject(obj);
+        }
+
+        public static string usernamesuccesResponse(string username)
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                succes = new {username=username }
             });
         }
     }
