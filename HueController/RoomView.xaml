@@ -15,7 +15,7 @@
 
         <SplitView x:Name="SplitView" Grid.Column="0"
                    DisplayMode="CompactOverlay"
-                   OpenPaneLength="200"
+                   OpenPaneLength="210"
                    IsPaneOpen="False"
                    CompactPaneLength="60"
                    >
@@ -71,19 +71,19 @@
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
                              />
-                            <TextBlock Text="Add Room" FontSize="18" VerticalAlignment="Center" />
+                            <TextBlock Text="Add room" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem Tapped="AddRandomName">
                         <StackPanel Orientation="Horizontal">
                             <Button 
-                                Content="&#xE716;" 
+                                Content="&#xE7AD;" 
                                 FontFamily="Segoe MDL2 Assets" 
                                 Height="50" Width="50" 
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
                              />
-                            <TextBlock Text="Random Naam" FontSize="18" VerticalAlignment="Center" />
+                            <TextBlock Text="Random name" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
                 </ListBox>

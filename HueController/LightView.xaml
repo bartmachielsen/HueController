@@ -15,7 +15,7 @@
 
         <SplitView x:Name="SplitView" Grid.Column="0"
                    DisplayMode="CompactOverlay"
-                   OpenPaneLength="200"
+                   OpenPaneLength="210"
                    IsPaneOpen="False"
                    CompactPaneLength="60"
                    >
@@ -79,32 +79,17 @@
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem
-                        Tapped="SelectMore">
-                        <StackPanel Orientation="Horizontal">
-                            <Button 
-                               
-                                Content="&#xE8E6;" 
-                                FontFamily="Segoe MDL2 Assets" 
-                                Height="50" Width="50" 
-                                Background="Transparent"
-                                Margin="-10,0,10,0"
-                             />
-                            <TextBlock Text="Select" FontSize="18" VerticalAlignment="Center" />
-                        </StackPanel>
-                    </ListBoxItem>
-                    <ListBoxItem
                         Tapped="RandomNames">
                         <StackPanel 
                             Orientation="Horizontal">
                             <Button 
-                                
-                                Content="&#xE8AC;" 
+                                Content="&#xE72D;" 
                                 FontFamily="Segoe MDL2 Assets" 
                                 Height="50" Width="50" 
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
                              />
-                            <TextBlock Text="Random Namen" FontSize="18" VerticalAlignment="Center" />
+                            <TextBlock Text="Random names" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem
@@ -112,7 +97,7 @@
                         <StackPanel 
                             Orientation="Horizontal">
                             <Button 
-                                Content="&#xE8E1;" 
+                                Content="&#xE7AD;" 
                                 FontFamily="Segoe MDL2 Assets" 
                                 Height="50" Width="50" 
                                 Background="Transparent"
@@ -126,14 +111,26 @@
                         <StackPanel 
                             Orientation="Horizontal">
                             <Button 
-                                
-                                Content="&#xE8CD;" 
+                                Content="&#xE8F8;" 
                                 FontFamily="Segoe MDL2 Assets" 
                                 Height="50" Width="50" 
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
                              />
-                            <TextBlock Text="KillBridge" FontSize="18" VerticalAlignment="Center" />
+                            <TextBlock Text="Kill bridge" FontSize="18" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem
+                        Tapped="SelectMore">
+                        <StackPanel Orientation="Horizontal">
+                            <Button 
+                                Content="&#xE73A;" 
+                                FontFamily="Segoe MDL2 Assets" 
+                                Height="50" Width="50" 
+                                Background="Transparent"
+                                Margin="-10,0,10,0"
+                             />
+                            <TextBlock Text="Select" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem
@@ -141,14 +138,13 @@
                         <StackPanel 
                             Orientation="Horizontal">
                             <Button 
-                                
                                 Content="&#xE70F;" 
                                 FontFamily="Segoe MDL2 Assets" 
                                 Height="50" Width="50" 
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
                              />
-                            <TextBlock Text="Change All" FontSize="18" VerticalAlignment="Center" />
+                            <TextBlock Text="Change all" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
                     </ListBoxItem>
                     <ListBoxItem
@@ -158,7 +154,6 @@
                             Orientation="Horizontal"
                             Visibility="Collapsed">
                             <Button 
-                                
                                 Content="&#xE70F;" 
                                 FontFamily="Segoe MDL2 Assets" 
                                 Height="50" Width="50" 
@@ -176,7 +171,6 @@
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="data:Light" >
                             <Grid 
-                                    
                                     Name="gridviewitem"
                                     Padding="20,10,20,10" 
                                     Height="145" 
@@ -209,7 +203,6 @@
                                 Grid.ColumnSpan="2"
                                 HorizontalAlignment="Left"
                                 Toggled="ToggleSwitch_OnToggled"
-                                    
                                 />
                             </Grid>
                         </DataTemplate>
