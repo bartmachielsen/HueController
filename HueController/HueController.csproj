@@ -114,6 +114,7 @@
     <Compile Include="RoomCreate.xaml.cs">
       <DependentUpon>RoomCreate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\RoomKiller.cs" />
     <Compile Include="RoomView.xaml.cs">
       <DependentUpon>RoomView.xaml</DependentUpon>
     </Compile>

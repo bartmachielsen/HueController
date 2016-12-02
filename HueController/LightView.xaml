@@ -147,7 +147,6 @@
                                 Height="50" Width="50" 
                                 Background="Transparent"
                                 Margin="-10,0,10,0"
-                                Click="Changeevery"
                              />
                             <TextBlock Text="Change All" FontSize="18" VerticalAlignment="Center" />
                         </StackPanel>
@@ -197,7 +196,7 @@
                                 <TextBlock 
                                 Text="{x:Bind name, Mode=OneWay}" 
                                 Grid.Row="0"
-                                FontSize= "10"
+                                FontSize= "13"
                                 FontWeight="ExtraBold"
                                 TextWrapping="Wrap"
                                 Grid.Column="0"

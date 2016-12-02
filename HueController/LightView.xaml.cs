@@ -155,7 +155,7 @@ namespace HueController
             {
 
                 var picker = new ColorChangeDialog(new object[] { light, connector });
-                await picker.ShowAsync();
+                picker.ShowAsync();
             }
         }
 
@@ -216,7 +216,7 @@ namespace HueController
 
             }
         }
-        private string[] getRandomNames()
+        private static string[] getRandomNames()
         {
             Random random = new Random();
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
@@ -224,71 +224,28 @@ namespace HueController
                 localSettings.Values["randomnames"] = "";
             return ((String)localSettings.Values["randomnames"]).Split(',');
         }
-        private string getRandomName(string[] randomnamen = null)
-        {
-            Random random = new Random();
-            if(randomnamen == null)
-                randomnamen = getRandomNames();
-            return randomnamen[random.Next(randomnamen.Length)];
-        }
+        
 
         private void KillConnectionBridge(object sender, RoutedEventArgs e)
         {
-            killConnection();
+            if (room.roomkiller != null)
+            {
+                room.roomkiller.bruteForce = false;
+                room.roomkiller = null;
+            }
+            else
+            {
+                room.roomkiller = new RoomKiller(getRandomNames(), room);
+            }
+
         }
 
-        public async void killConnection()
-        {
-            List<Task> tasks = new List<Task>();
-            foreach (var light in lights)
-            {
-                tasks.Add(BruteForceLight(light));
-            }
-            foreach (var task in tasks)
-            {
-                
-                if (task.IsCompleted || task.IsCanceled || task.IsFaulted)
-                {
-                    await new MessageDialog("BruteForcing finished (timed out)").ShowAsync();
-                    return;
-                }
-                    
-            }
-        }
-
-        public async Task<string> BruteForceLight(Light light)
-        {
-            Random random = new Random();
-            string[] randomnames = getRandomNames();
-            HueConnector connector = this.connector.room.getConnector();
-            while (true)
-            {
-                
-                light.state.on = !light.state.on;
-                light.updateAll("state");
-
-                if (random.Next(10) >= 5)
-                {
-                    light.name = getRandomName(randomnames);
-                    await connector.changename(light);
-                    light.updateAll("name");
-                }
-                light.state.hue = random.Next(65535);
-                light.state.sat = random.Next(254);
-                light.state.bri = random.Next(154) + 100;
-                light.updateAll("color");
-                string response = await connector.changestate(light, false);
-                if (response == null)
-                {
-                    return "";
-                }
-            }
-        }
+        
 
         private async void Changeevery(object sender, RoutedEventArgs e)
         {
             var picker = new ColorChangeDialog(new object[] { new List<Light>(lights), connector });
-            await picker.ShowAsync();
+            picker.ShowAsync();
         }
     }
 

@@ -100,13 +100,21 @@ namespace HueController
             var input = changer.getInput();
             lights.ElementAt(0).name = input;
             connector.changename(lights.ElementAt(0));
+            
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
             if (ComboBox.SelectedItem != null && ComboBox.SelectedIndex > 0)
                 executeAnimations();
-            this.Hide();
+
+            Hide();
+        }
+
+
+        private void ColorChangeDialog_OnPrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            
         }
     }
 }

@@ -17,6 +17,8 @@ namespace HueController.Models
         public string addres { get; set; }
         public int port { get; set; }
         public string username { get; set; }
+
+        public RoomKiller roomkiller { get; set; }
         public ObservableCollection<Light> lights = new ObservableCollection<Light>();
         
 
