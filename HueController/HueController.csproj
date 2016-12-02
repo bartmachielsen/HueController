@@ -107,6 +107,7 @@
     </Compile>
     <Compile Include="Models\Animations\Animation.cs" />
     <Compile Include="Models\Animations\AnimationHandler.cs" />
+    <Compile Include="Models\RandomName.cs" />
     <Compile Include="Models\Room.cs" />
     <Compile Include="NameChanger.xaml.cs">
       <DependentUpon>NameChanger.xaml</DependentUpon>

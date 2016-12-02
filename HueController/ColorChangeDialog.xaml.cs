@@ -37,6 +37,13 @@ namespace HueController
                 lights = (List<Light>) ((object[]) e)[0];
 
             connector = (HueConnector) ((object[]) e)[1];
+
+
+            if (lights.Count != 1)
+            {
+                NameBox.Visibility = Visibility.Collapsed;
+            }
+
         }
 
         public Light light
@@ -109,6 +116,7 @@ namespace HueController
             {
                 lights.ElementAt(0).name = NameBox.Text;
                 connector.changename(lights.ElementAt(0));
+                lights.ElementAt(0).updateAll("name");
             }
             if (ComboBox.SelectedItem != null && ComboBox.SelectedIndex > 0)
                 executeAnimations();
