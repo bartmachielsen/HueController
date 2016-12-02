@@ -109,7 +109,7 @@ namespace HueController.Models.Animations
 
         }
 
-        public override void ExecuteOne(int index, Light light)
+        public override async void ExecuteOne(int index, Light light)
         {
             if (this.index == light.id)
             {
@@ -119,6 +119,7 @@ namespace HueController.Models.Animations
             {
                 light.setColor(focushue, 0, 0);
             }
+            await connector.changestate(light, true);
         }
 
         public override void RoundFinished()
