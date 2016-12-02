@@ -100,7 +100,7 @@ namespace HueController
         {
             return JsonConvert.SerializeObject(new
             {
-                succes = new {username=username }
+                succes = new {username = username}
             });
         }
 
@@ -111,5 +111,22 @@ namespace HueController
                 usernames = usernames
             });
         }
+
+        public static string generateNamesForSave(RandomName[] names)
+        {
+            var dynamicarray = new dynamic[names.Length];
+            for (int i = 0; i < names.Length; i++)
+            {
+                dynamicarray[i] = new
+                {
+                    name = names[i].name
+                };
+            }
+            return JsonConvert.SerializeObject(new
+            {
+                names = dynamicarray
+            });
+        }
     }
 }
+

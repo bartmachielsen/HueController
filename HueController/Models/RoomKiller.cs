@@ -10,11 +10,11 @@ namespace HueController
 {
     public class RoomKiller
     {
-        public string[] randomnames;
+        public RandomName[] randomnames;
         public Room room;
         public bool bruteForce = true;
 
-        public RoomKiller(string[] randomnames, Room room)
+        public RoomKiller(RandomName[] randomnames, Room room)
         {
             this.randomnames = randomnames;
             this.room = room;
@@ -42,7 +42,7 @@ namespace HueController
         private string getRandomName()
         {
             Random random = new Random();
-            return randomnames[random.Next(randomnames.Length)];
+            return randomnames.ElementAt(random.Next(randomnames.Length)).name;
         }
 
         public async Task<string> BruteForceLight(Light light)

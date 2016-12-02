@@ -88,5 +88,27 @@ namespace HueController
                 return null;
             }
         }
+
+        public static ObservableCollection<RandomName> parseNamesFromSave(string localSetting)
+        {
+            ObservableCollection<RandomName> names = new ObservableCollection<RandomName>();
+            try
+            {
+                dynamic json = JsonConvert.DeserializeObject(localSetting);
+                JArray array = (JArray) (json.names);
+                foreach (dynamic jsono in array)
+                {
+                    string name = jsono.name;
+                    if(name != null)
+                        names.Add(new RandomName(name));
+                }
+                return names;
+            }
+            catch (Exception)
+            {
+                return names;
+            }
+            
+        }
     }
 }

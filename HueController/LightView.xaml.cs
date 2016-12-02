@@ -200,29 +200,21 @@ namespace HueController
         private void RandomNames(object sender, RoutedEventArgs e)
         {
             Random random = new Random();
-            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            if (!localSettings.Values.ContainsKey("randomnames"))
-                localSettings.Values["randomnames"] = "";
-            string[] randomnamen = ((String) localSettings.Values["randomnames"]).Split(',');
-            if (randomnamen.Length == 0)
-                return;
+            var collection = getRandomNames();
 
             foreach (var light in lights)
             {
-                light.name = randomnamen[random.Next(randomnamen.Length)];
+                light.name = collection.ElementAt(random.Next(collection.Count)).name;
                 connector.changename(light);
                 light.updateAll("name");
                 
 
             }
         }
-        private static string[] getRandomNames()
+        private static ObservableCollection<RandomName> getRandomNames()
         {
-            Random random = new Random();
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            if (!localSettings.Values.ContainsKey("randomnames"))
-                localSettings.Values["randomnames"] = "";
-            return ((String)localSettings.Values["randomnames"]).Split(',');
+            return JSONParser.parseNamesFromSave("" + localSettings.Values["randomnames"]);
         }
         
 
@@ -235,7 +227,7 @@ namespace HueController
             }
             else
             {
-                room.roomkiller = new RoomKiller(getRandomNames(), room);
+                room.roomkiller = new RoomKiller(getRandomNames().ToArray(), room);
             }
 
         }
