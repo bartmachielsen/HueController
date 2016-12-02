@@ -90,21 +90,26 @@ namespace HueController
                 case 2:
                     AnimationHandler.ExecuteAnimation(new BlackWhiteAnimation(connector), lights);
                     break;
+                case 3:
+                    AnimationHandler.ExecuteAnimation(new RandomAnimation(connector), lights );
+                    break;
+                case 4:
+                    AnimationHandler.ExecuteAnimation(new ColorLoop((int)HueSlider.Value, lights.Count, connector), lights);
+                    break;
+                case 5:
+                    AnimationHandler.ExecuteAnimation(new ColorLoopBack((int)HueSlider.Value, lights.Count, connector), lights);
+                    break;
             }
         }
 
-        private async void ChangeName(object sender, RoutedEventArgs e)
-        {
-            var changer = new NameChanger(lights.ElementAt(0).name);
-            await changer.ShowAsync();
-            var input = changer.getInput();
-            lights.ElementAt(0).name = input;
-            connector.changename(lights.ElementAt(0));
-            
-        }
-
+      
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
+            if (lights.Count == 1 && NameBox.Text != lights.ElementAt(0).name)
+            {
+                lights.ElementAt(0).name = NameBox.Text;
+                connector.changename(lights.ElementAt(0));
+            }
             if (ComboBox.SelectedItem != null && ComboBox.SelectedIndex > 0)
                 executeAnimations();
 

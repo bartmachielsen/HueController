@@ -10,7 +10,7 @@ namespace HueController.Models.Animations
     public abstract class Animation
     {
         public int length { get; set; } = 100;
-        public int delayTime { get; set; } = 100;
+        public int delayTime { get; set; } = 400;
         public HueConnector connector;
 
         public Animation(HueConnector connector)
@@ -58,23 +58,98 @@ namespace HueController.Models.Animations
         {
             if (light.id%2 == 0 && even || light.id%2 != 0 && !even)
             {
-                light.state.hue = 0;
-                light.state.sat = 0;
-                light.state.bri = 0;
+                light.setColor(0, 0, 0);
             }
             else
             {
-                light.state.hue = 0;
-                light.state.sat = 0;
-                light.state.bri = 254;
+                light.setColor(0,0,254);
             }
-            light.updateAll("color");
             await connector.changestate(light, true);
         }
 
         public override void RoundFinished()
         {
             even = !even;
+        }
+    }
+
+
+    public class RandomAnimation : Animation
+    {
+        public int hue, bri, sat;
+        public Random random;
+        public RandomAnimation(HueConnector connector) : base(connector)
+        {
+            random = new Random();
+            RoundFinished();
+        }
+
+        public override void RoundFinished()
+        {
+            hue = random.Next(65535);
+            sat = random.Next(254);
+            bri = random.Next(154) + 100;
+        }
+
+        public override async void ExecuteOne(int index, Light light)
+        {
+            light.setColor(hue,sat,bri);
+            await connector.changestate(light, true);
+        }
+    }
+
+    public class ColorLoop : Animation
+    {
+        public int index = 0;
+        public int focushue,  maxsize;
+        public ColorLoop(int focushue,int maxsize, HueConnector connector) : base(connector)
+        {
+            this.focushue = focushue;
+            this.maxsize = maxsize;
+
+        }
+
+        public override void ExecuteOne(int index, Light light)
+        {
+            if (this.index == light.id)
+            {
+                light.setColor(focushue, 254, 254);
+            }
+            else
+            {
+                light.setColor(focushue, 0, 0);
+            }
+        }
+
+        public override void RoundFinished()
+        {
+            index++;
+            if (index > maxsize)
+            {
+                index = 0;
+            }
+        }
+    }
+
+    public class ColorLoopBack : ColorLoop
+    {
+        private int target = 1;
+        public ColorLoopBack(int focushue,  int maxsize, HueConnector connector) : base(focushue, maxsize, connector)
+        {
+        }
+
+        public override void RoundFinished()
+        {
+
+            index += target;
+            if (index > maxsize)
+            {
+                target = -1;
+            }
+            if (index < 0)
+            {
+                target = 1;
+            }
         }
     }
 }

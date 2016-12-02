@@ -59,6 +59,14 @@ namespace HueController.Models
             set { state.on = value == "True"; }
         }
 
+        public void setColor(int hue, int sat, int bri)
+        {
+            this.state.hue = hue;
+            this.state.bri = bri;
+            this.state.sat = sat;
+            this.updateAll("color");
+        }
+
         public void setColor(Color color)
         {
             double hue, sat, bri;

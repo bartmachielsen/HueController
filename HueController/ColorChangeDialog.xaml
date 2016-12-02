@@ -18,10 +18,6 @@
             <RowDefinition Height="3*"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -31,6 +27,7 @@
        
         <Slider x:Name="HueSlider" 
                     Grid.Row="1"
+                    Header="Hue"
                     Grid.Column="1"
                     VerticalAlignment="Bottom"
                     Value="{x:Bind light.slider[0], Mode=TwoWay}" 
@@ -39,15 +36,10 @@
                     ValueChanged="sliderValueChanged"
                     PointerCaptureLost="ApplyClick"
                 />
-        <TextBlock
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    HorizontalAlignment="Center" 
-                    Text="Hue" 
-                    TextWrapping="Wrap"
-                />
+     
         <Slider x:Name="SaturationSlider" 
-                    Grid.Row="3"
+                    Grid.Row="2"
+                    Header="Saturation"
                     Grid.Column="1"
                     VerticalAlignment="Bottom"
                     Value="{x:Bind light.slider[2], Mode=TwoWay}"
@@ -56,15 +48,10 @@
                     ValueChanged="sliderValueChanged"
                     PointerCaptureLost="ApplyClick"
                 />
-        <TextBlock
-                    Grid.Row="4"
-                    Grid.Column="1"
-                    HorizontalAlignment="Center" 
-                    Text="Saturation" 
-                    TextWrapping="Wrap"
-                />
+ 
         <Slider x:Name="ValueSlider" 
-                    Grid.Row="5"
+                    Grid.Row="3"
+                    Header="Brightness"
                     Grid.Column="1"
                     VerticalAlignment="Bottom"
                     Value="{x:Bind light.slider[1], Mode=TwoWay}" 
@@ -73,32 +60,41 @@
                     ValueChanged="sliderValueChanged"
                     PointerCaptureLost="ApplyClick"
                 />
-        <TextBlock 
-                    Grid.Row="6"
-                    Grid.Column="1"
-                    HorizontalAlignment="Center"
-                    Text="Value" 
-                    TextWrapping="Wrap"
+        <StackPanel
+            Grid.Row="5"
+            Grid.Column="1"
+            Orientation="Horizontal"
+            >
+            <ComboBox x:Name="ComboBox" 
+                              Header="Animations"
+                              SelectedIndex="0"
+                                Margin="0,0,20,0" 
+                                Width="150"
+                      >
+                <ComboBoxItem Content="No Animation"/>
+                <ComboBoxItem Content="All Random animation"/>
+                <ComboBoxItem Content="Black White animation"/>
+                <ComboBoxItem Content="Random animation"/>
+                <ComboBoxItem Content="Color loop animation"/>
+                <ComboBoxItem Content="Color loop animation With back"/>
+            </ComboBox>
+            <TextBox
+                Name="NameBox"
+                Header="Name:"
+                Width="150"
+                Text="{x:Bind light.name}"
                 />
-        <ComboBox x:Name="ComboBox" 
-                          Grid.Row="7"
-                          Grid.Column="1"
-                          HorizontalAlignment="Center" 
-                          VerticalAlignment="Center"
-                          Width="190" 
-                          SelectedIndex="0">
-            <ComboBoxItem Content="No Animation"/>
-            <ComboBoxItem Content="Random animation"/>
-            <ComboBoxItem Content="Black White animation"/>
-        </ComboBox>
+        </StackPanel>
+
         <TextBlock
-            Grid.Row="9"
+            Grid.Row="6"
             Height="100"
+            
             />
         
         <Button
             Content="OK"
-            Grid.Row="10"
+            Grid.Row="7"
             HorizontalAlignment="Center"
             Grid.Column="1"
             Width="300"
