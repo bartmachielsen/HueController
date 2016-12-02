@@ -178,8 +178,6 @@
                             <Grid 
                                     
                                     Name="gridviewitem"
-                                    BorderBrush="Black" 
-                                    BorderThickness="2" 
                                     Padding="20,10,20,10" 
                                     Height="145" 
                                     Width="145" 
