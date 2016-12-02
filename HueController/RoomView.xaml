@@ -94,9 +94,7 @@
                         <DataTemplate x:DataType="data:Room">
                             <Grid
                                 Tapped="UIElement_OnTapped"
-                                BorderBrush="Black" 
                                 Background="LightBlue"
-                                BorderThickness="2" 
                                 Height="145"
                                 Width="145" >
                                 <Grid.ColumnDefinitions>
@@ -124,7 +122,7 @@
                                     Content="Delete"
                                     Grid.Row="1"
                                     Grid.Column="1"
-                                    HorizontalAlignment="Center"
+                                    HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     Click="DeleteRoom"/>
                             </Grid>

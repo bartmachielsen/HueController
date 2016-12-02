@@ -9,26 +9,23 @@
     Title="{x:Bind light.name}"
     PrimaryButtonClick="ColorChangeDialog_OnPrimaryButtonClick">
 
-    <Grid>
+    <Grid Margin="0,10,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="10*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
        
         <Slider x:Name="HueSlider" 
                     Grid.Row="1"
                     Header="Hue"
-                    Grid.Column="1"
                     VerticalAlignment="Bottom"
                     Value="{x:Bind light.slider[0], Mode=TwoWay}" 
                     Maximum="65535"
@@ -40,7 +37,6 @@
         <Slider x:Name="SaturationSlider" 
                     Grid.Row="2"
                     Header="Saturation"
-                    Grid.Column="1"
                     VerticalAlignment="Bottom"
                     Value="{x:Bind light.slider[2], Mode=TwoWay}"
                     Maximum="254"
@@ -52,7 +48,6 @@
         <Slider x:Name="ValueSlider" 
                     Grid.Row="3"
                     Header="Brightness"
-                    Grid.Column="1"
                     VerticalAlignment="Bottom"
                     Value="{x:Bind light.slider[1], Mode=TwoWay}" 
                     Maximum="254"
@@ -62,15 +57,14 @@
                 />
         <StackPanel
             Grid.Row="5"
-            Grid.Column="1"
             Orientation="Horizontal"
             >
             <ComboBox x:Name="ComboBox" 
-                              Header="Animations"
-                              SelectedIndex="0"
-                                Margin="0,0,20,0" 
-                                Width="150"
-                      >
+                Header="Animations"
+                SelectedIndex="0"
+                Margin="0,0,20,0" 
+                Width="150"
+                >
                 <ComboBoxItem Content="No Animation"/>
                 <ComboBoxItem Content="All Random animation"/>
                 <ComboBoxItem Content="Black White animation"/>
@@ -89,14 +83,12 @@
         <TextBlock
             Grid.Row="6"
             Height="100"
-            
             />
         
         <Button
             Content="OK"
             Grid.Row="7"
             HorizontalAlignment="Center"
-            Grid.Column="1"
             Width="300"
             Click="ButtonBase_OnClick"
             />
