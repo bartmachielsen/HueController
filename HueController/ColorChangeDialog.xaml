@@ -7,18 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Title="{x:Bind light.name}"
-    PrimaryButtonClick="ColorChangeDialog_OnPrimaryButtonClick" Height="431">
+    PrimaryButtonClick="ColorChangeDialog_OnPrimaryButtonClick"
+    Height="430" Margin="0,100,0,0"
+    >
 
-    <ContentDialog.Transitions>
-        <TransitionCollection>
-            <NavigationThemeTransition>
-                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                    <SlideNavigationTransitionInfo/>
-                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
-            </NavigationThemeTransition>
-        </TransitionCollection>
-    </ContentDialog.Transitions>
-    
     <Grid Margin="0,10,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -94,7 +86,7 @@
             Grid.Row="6"
             Height="100"
             />
-        
+
         <Button
             Content="OK"
             Grid.Row="7"
@@ -102,6 +94,5 @@
             Width="300"
             Click="ButtonBase_OnClick"
             />
-        
     </Grid>
 </ContentDialog>
