@@ -241,5 +241,4 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /HueController/Properties
-/HueController/Assets
 /HueController/Package.appxmanifest
