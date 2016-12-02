@@ -9,6 +9,16 @@
     Title="{x:Bind light.name}"
     PrimaryButtonClick="ColorChangeDialog_OnPrimaryButtonClick" Height="431">
 
+    <ContentDialog.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <SlideNavigationTransitionInfo/>
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </ContentDialog.Transitions>
+    
     <Grid Margin="0,10,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
